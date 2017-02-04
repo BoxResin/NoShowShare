@@ -5,11 +5,13 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 
 import com.squareup.picasso.Picasso;
 
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity
 							JSONObject jsonRestaurant = jsonRoot.getJSONArray("list").getJSONObject(0);
 
 							// 화면 갱신
-							LinearLayout root = (LinearLayout) findViewById(R.id.best);
+							View root = findViewById(R.id.best);
 							root.setVisibility(View.VISIBLE);
 							mapReservation(root, Reservation.fromJson(jsonRestaurant));
 						}
@@ -162,7 +164,7 @@ public class MainActivity extends AppCompatActivity
 									JSONObject jsonRestaurant = jsonRoot.getJSONArray("list").getJSONObject(0);
 
 									// 화면 갱신
-									LinearLayout root = (LinearLayout) findViewById(R.id.recent);
+									View root = findViewById(R.id.recent);
 									root.setVisibility(View.VISIBLE);
 									mapReservation(root, Reservation.fromJson(jsonRestaurant));
 								}
@@ -198,12 +200,17 @@ public class MainActivity extends AppCompatActivity
 		itemBinding.txtRestaurantName.setText(reservation.getRestaurant().getName());
 		itemBinding.txtRestaurantLocation.setText(reservation.getRestaurant().getLocationName());
 		itemBinding.txtFoodName.setText(reservation.getFood().getName());
-		itemBinding.txtPrice.setText(reservation.getFood().getPrice() + "원");
+
+		// 원가에 취소선 긋기
+		SpannableString txtPriceSpan = new SpannableString(reservation.getFood().getPrice() + "원");
+		txtPriceSpan.setSpan(new StrikethroughSpan(), 0, txtPriceSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+		itemBinding.txtPrice.setText(txtPriceSpan);
 		itemBinding.txtDiscountedPrice.setText(reservation.getDiscountedPrice() + "원");
+
+		// 이미지 url 불러오기
 		if (reservation.getImgUrl() != null)
 		{
-			Picasso.with(this).load(reservation.getImgUrl()).resize(460,
-					860).noFade().into(itemBinding.imgFood);
+			Picasso.with(this).load(reservation.getImgUrl()).into(itemBinding.imgFood);
 		}
 
 		double discountRate = 1 - (double) reservation.getDiscountedPrice() / reservation.getFood().getPrice();
