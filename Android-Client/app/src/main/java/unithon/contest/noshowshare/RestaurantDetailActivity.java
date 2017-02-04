@@ -31,18 +31,25 @@ public class RestaurantDetailActivity extends AppCompatActivity
 	{
 		super.onResume();
 		long now = System.currentTimeMillis();
-		SharedPreferences preferences = getSharedPreferences("past", Context.MODE_PRIVATE);
+		SharedPreferences pref = getSharedPreferences("past", Context.MODE_PRIVATE);
 
-		long past = preferences.getLong("key", 0);
+		// 두 시간이 안 지났을 때
+		long past = pref.getLong("key", 0);
 		if (now - past < G.VALID_RESERVATION_TIME_MS)
 		{
 			binding.btnChange.setText("두 시간이 지난 후에 예약 가능");
 			binding.btnReserve.setEnabled(false);
 		}
+
+		// 두 시간이 지났을 때
 		else
 		{
 			binding.btnChange.setText("예약하기");
 			binding.btnReserve.setEnabled(true);
+
+			SharedPreferences.Editor editor = pref.edit();
+			editor.putString("reservation", "");
+			editor.commit();
 		}
 	}
 
