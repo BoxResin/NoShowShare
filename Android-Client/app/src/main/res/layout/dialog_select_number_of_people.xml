@@ -1,87 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+              android:layout_width = "match_parent"
+              android:layout_height = "match_parent"
+              android:orientation = "vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#FF5555" />
+	<View
+		android:layout_width = "match_parent"
+		android:layout_height = "10dp"
+		android:background = "#FF5555"/>
 
-    <include layout="@layout/item_no_img_reservation_info" />
+	<include layout = "@layout/item_no_img_reservation_info"/>
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="5dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="25dp"
-        android:background="#FF5555" />
+	<View
+		android:layout_width = "wrap_content"
+		android:layout_height = "5dp"
+		android:layout_marginLeft = "50dp"
+		android:layout_marginRight = "25dp"
+		android:background = "#FF5555"/>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:orientation="horizontal"
-        android:paddingBottom="30dp"
-        android:paddingTop="15dp">
+	<LinearLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:gravity = "right"
+		android:orientation = "horizontal"
+		android:paddingBottom = "30dp"
+		android:paddingTop = "15dp">
 
-        <TextView
+		<TextView
+			android:id = "@+id/price_sum"
+			android:layout_width = "wrap_content"
+			android:layout_height = "match_parent"
+			android:gravity = "bottom"
+			android:text = "0"
+			android:textSize = "30dp"/>
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/price_sum"
-            android:gravity="right"
-            android:text="0"
-            android:textSize="30dp" />
+		<TextView
+			android:layout_width = "wrap_content"
+			android:layout_height = "match_parent"
+			android:layout_marginRight = "30dp"
+			android:gravity = "bottom"
+			android:text = "￦"/>
+	</LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity=""
-            android:layout_marginRight="30dp"
-            android:text="￦" />
-    </LinearLayout>
+	<View
+		android:layout_width = "match_parent"
+		android:layout_height = "3dp"
+		android:layout_margin = "10dp"
+		android:layout_marginBottom = "30dp"
+		android:background = "#d4d4d4"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_margin="10dp"
-        android:layout_marginBottom="30dp"
-        android:background="#d4d4d4" />
+	<LinearLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content"
+		android:layout_margin = "30dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp">
+		<ImageView
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_gravity = "center"
+			android:background = "@drawable/phone"/>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/phone"
-            android:layout_gravity="center"/>
+		<EditText
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			android:hint = "전화 번호를 입력해 주세요."
+			android:inputType = "phone"/>
+	</LinearLayout>
 
-        <EditText
-            android:inputType="phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="전화 번호를 입력해 주세요." />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/btn_confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="145dp"
-        android:background="@drawable/reservation_botton"
-        android:clickable="true"
-        android:gravity="center"
-        android:text="결제"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp" />
-
+	<TextView
+		android:id = "@+id/btn_confirm"
+		android:layout_width = "wrap_content"
+		android:layout_height = "wrap_content"
+		android:layout_gravity = "bottom"
+		android:layout_marginTop = "145dp"
+		android:background = "@drawable/reservation_botton"
+		android:clickable = "true"
+		android:gravity = "center"
+		android:text = "결제"
+		android:textColor = "#FFFFFF"
+		android:textSize = "30sp"/>
 
 
 </LinearLayout>
