@@ -15,6 +15,7 @@ import android.view.WindowManager;
 
 import data.Reservation;
 import unithon.contest.noshowshare.databinding.ActivityRestaurantDetailBinding;
+import util.G;
 
 /**
  * 예약 상세정보 액티비티
@@ -26,18 +27,29 @@ public class RestaurantDetailActivity extends AppCompatActivity
 	private Reservation reservation;
 
 	@Override
-	protected void onResume() {
+	protected void onResume()
+	{
 		super.onResume();
-		long now=System.currentTimeMillis();
-		SharedPreferences preferences = getSharedPreferences("past", Context.MODE_PRIVATE);
+		long now = System.currentTimeMillis();
+		SharedPreferences pref = getSharedPreferences("past", Context.MODE_PRIVATE);
 
-		long past = preferences.getLong("key",0);
-		if(now - past < 3600*2*1000){
+		// 두 시간이 안 지났을 때
+		long past = pref.getLong("key", 0);
+		if (now - past < G.VALID_RESERVATION_TIME_MS)
+		{
 			binding.btnChange.setText("두 시간이 지난 후에 예약 가능");
 			binding.btnReserve.setEnabled(false);
-		}else{
+		}
+
+		// 두 시간이 지났을 때
+		else
+		{
 			binding.btnChange.setText("예약하기");
 			binding.btnReserve.setEnabled(true);
+
+			SharedPreferences.Editor editor = pref.edit();
+			editor.putString("reservation", "");
+			editor.commit();
 		}
 	}
 
@@ -48,15 +60,24 @@ public class RestaurantDetailActivity extends AppCompatActivity
 		binding = DataBindingUtil.setContentView(this, R.layout.activity_restaurant_detail);
 
 		// 전달받은 예약 정보를 가져온다.
-		Intent intent = getIntent();
-		reservation = (Reservation) intent.getSerializableExtra("reservation");
+		reservation = (Reservation) getIntent().getSerializableExtra("reservation");
+		init();
+	}
 
+	@Override
+	protected void onNewIntent(Intent intent)
+	{
+		// 전달받은 예약 정보를 가져온다.
+		reservation = (Reservation) intent.getSerializableExtra("reservation");
+		init();
+	}
+
+	private void init()
+	{
 		// 음식점 정보 출력
 		binding.txtRestaurantName.setText(reservation.getRestaurant().getName());
 		binding.txtRestaurantLocation.setText(reservation.getRestaurant().getLocationName());
 		binding.txtPhone.setText(reservation.getRestaurant().getPhone());
-
-
 
 		// 음식 정보 출력
 		binding.txtFoodName.setText(reservation.getFood().getName());
@@ -80,12 +101,11 @@ public class RestaurantDetailActivity extends AppCompatActivity
 		{
 			finish();
 		}
-		else if(view == binding.btnReserve)
+		else if (view == binding.btnReserve)
 		{
 
 
-			SelectNumberOfPeopleDialog dialog = new SelectNumberOfPeopleDialog(this,
-					reservation.getDiscountedPrice(), reservation.getRemained());
+			SelectNumberOfPeopleDialog dialog = new SelectNumberOfPeopleDialog(this, reservation);
 			WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
 			params.copyFrom(dialog.getWindow().getAttributes());
 

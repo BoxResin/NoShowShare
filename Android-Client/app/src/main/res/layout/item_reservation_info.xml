@@ -162,6 +162,7 @@
 			</LinearLayout>
 
 			<ImageView
+				android:id="@+id/ribbon"
 				android:layout_width = "60dp"
 				android:layout_height = "60dp"
 				android:layout_gravity = "right"
