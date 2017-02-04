@@ -12,6 +12,7 @@ public class Reservation
 	private ArrayList<User> users = new ArrayList<>(); // 이 예약에 참여하는 사용자 목록
 	private Food food;
 	private int remained; // 남은 수량
+	private int discountedPrice; // 할인된 가격
 
 	public int getRemained()
 	{
