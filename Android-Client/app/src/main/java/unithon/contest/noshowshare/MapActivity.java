@@ -8,12 +8,14 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapController;
 import com.nhn.android.maps.NMapOverlayItem;
 import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.overlay.NMapPOIdata;
+import com.nhn.android.maps.overlay.NMapPOIitem;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 
@@ -114,11 +116,26 @@ public class MapActivity extends NMapActivity implements LocationListener
 								{
 									JSONObject jsonRestaurant = jsonRestaurants.getJSONObject(i);
 									Reservation reservation = Reservation.fromJson(jsonRestaurant);
-									mapPOIdata.addPOIitem(new NGeoPoint(location.getLongitude(), location.getLatitude()), null, 1, reservation, 1);
+									mapPOIdata.addPOIitem(new NGeoPoint(reservation.getRestaurant().getLng(),
+											reservation.getRestaurant().getLat()), "title", i + 1, reservation, i + 1);
 								}
 								mapPOIdata.endPOIdata();
 
 								NMapPOIdataOverlay poiDataOverlay = overlayManager.createPOIdataOverlay(mapPOIdata, getResources().getDrawable(R.drawable.map_store_none_clicked));
+								poiDataOverlay.setOnStateChangeListener(new NMapPOIdataOverlay.OnStateChangeListener()
+								{
+									@Override
+									public void onFocusChanged(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem)
+									{
+
+									}
+
+									@Override
+									public void onCalloutClick(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem)
+									{
+										Toast.makeText(MapActivity.this, nMapPOIitem.getTag().toString(), Toast.LENGTH_SHORT).show();
+									}
+								});
 								overlayManager.addOverlay(poiDataOverlay);
 							}
 						}
