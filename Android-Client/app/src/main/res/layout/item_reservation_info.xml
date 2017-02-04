@@ -5,7 +5,8 @@
 
 	<LinearLayout
 		android:layout_width = "match_parent"
-		android:layout_height = "wrap_content">
+		android:layout_height = "wrap_content"
+		tools:layout_height = "200dp">
 
 		<!-- 음식 이미지 -->
 		<ImageView
@@ -37,32 +38,54 @@
 				android:layout_marginTop = "5dp"
 				android:text = "음식점 위치"/>
 
-			<View
-				android:id = "@+id/some"
-				android:layout_width = "170dp"
-				android:layout_height = "50dp"
-				android:layout_below = "@id/txt_restaurant_location"
-				android:layout_centerHorizontal = "true"
-				android:layout_marginBottom = "20dp"
-				android:layout_marginTop = "20dp"
-				tools:background = "#FF0"/>
-
 			<!-- 음식 이름 -->
 			<TextView
 				android:id = "@+id/txt_food_name"
 				android:layout_width = "wrap_content"
 				android:layout_height = "wrap_content"
-				android:layout_below = "@id/some"
+				android:layout_below = "@id/txt_restaurant_location"
+				android:layout_marginTop = "30dp"
 				android:text = "음식 이름"
-				android:textSize="17dp"/>
+				android:textSize = "17dp"/>
 
-			<!-- 음식 원가 -->
+			<!-- 할인률 -->
 			<TextView
-				android:id = "@+id/txt_price"
+				android:id = "@+id/txt_discount_rate"
 				android:layout_width = "wrap_content"
 				android:layout_height = "wrap_content"
 				android:layout_below = "@id/txt_food_name"
-				android:text = "원가￦"/>
+				android:layout_marginTop = "15dp"
+				android:background = "#ff4a4a"
+				android:padding = "7dp"
+				android:text = "30%"
+				android:textColor = "#FFF"/>
+
+			<!-- 가격 표시줄 -->
+			<LinearLayout
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:layout_alignBottom = "@id/txt_discount_rate"
+				android:layout_marginLeft = "10dp"
+				android:layout_toRightOf = "@id/txt_discount_rate"
+				android:orientation = "vertical">
+
+				<!-- 음식 원가 -->
+				<TextView
+					android:id = "@+id/txt_price"
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					android:layout_below = "@id/txt_food_name"
+					android:text = "원가￦"/>
+
+				<!-- 음식 할인가 -->
+				<TextView
+					android:id = "@+id/txt_discounted_price"
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					android:text = "할인가￦"
+					android:textSize = "20sp"/>
+			</LinearLayout>
+
 
 			<!-- 음식 남은 수량 -->
 			<TextView
@@ -70,9 +93,10 @@
 				android:layout_width = "wrap_content"
 				android:layout_height = "wrap_content"
 				android:layout_alignBottom = "@id/txt_food_name"
-				android:layout_marginLeft = "10dp"
-				android:layout_toRightOf = "@id/txt_price"
-				android:text = "남은 수량"/>
+				android:layout_alignParentBottom = "true"
+				android:layout_alignParentRight = "true"
+				android:text = "4"
+				android:textSize="30sp"/>
 		</RelativeLayout>
 	</LinearLayout>
 </layout>
