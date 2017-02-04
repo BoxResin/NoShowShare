@@ -8,7 +8,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapController;
@@ -117,7 +116,8 @@ public class MapActivity extends NMapActivity implements LocationListener
 									JSONObject jsonRestaurant = jsonRestaurants.getJSONObject(i);
 									Reservation reservation = Reservation.fromJson(jsonRestaurant);
 									mapPOIdata.addPOIitem(new NGeoPoint(reservation.getRestaurant().getLng(),
-											reservation.getRestaurant().getLat()), "title", i + 1, reservation, i + 1);
+											reservation.getRestaurant().getLat()), "title", i + 1, reservation, i + 1)
+											.setHeadText("ASDF");
 								}
 								mapPOIdata.endPOIdata();
 
@@ -127,13 +127,15 @@ public class MapActivity extends NMapActivity implements LocationListener
 									@Override
 									public void onFocusChanged(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem)
 									{
-
 									}
 
 									@Override
 									public void onCalloutClick(NMapPOIdataOverlay nMapPOIdataOverlay, NMapPOIitem nMapPOIitem)
 									{
-										Toast.makeText(MapActivity.this, nMapPOIitem.getTag().toString(), Toast.LENGTH_SHORT).show();
+										binding.reservationInfo.reservationCard.setVisibility(View.VISIBLE);
+										binding.reservationInfo.ribbon.setVisibility(View.GONE);
+										Reservation reservation = (Reservation) nMapPOIitem.getTag();
+										reservation.map(binding.reservationInfo.reservationCard, MapActivity.this);
 									}
 								});
 								overlayManager.addOverlay(poiDataOverlay);

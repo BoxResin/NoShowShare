@@ -8,9 +8,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.StrikethroughSpan;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,7 +16,6 @@ import android.widget.Toast;
 
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +25,6 @@ import java.util.ArrayList;
 
 import data.Reservation;
 import unithon.contest.noshowshare.databinding.ActivityMainBinding;
-import unithon.contest.noshowshare.databinding.ItemReservationInfoBinding;
 import util.HttpRequester;
 
 public class MainActivity extends AppCompatActivity
@@ -57,7 +52,7 @@ public class MainActivity extends AppCompatActivity
 					convertView = getLayoutInflater().inflate(R.layout.item_reservation_info, parent, false);
 
 				Reservation reservation = getItem(position);
-				mapReservation(convertView, reservation);
+				reservation.map(convertView, MainActivity.this);
 
 				return convertView;
 			}
@@ -146,7 +141,7 @@ public class MainActivity extends AppCompatActivity
 									View root = findViewById(R.id.best);
 									root.setVisibility(View.VISIBLE);
 									bestReservation = Reservation.fromJson(jsonRestaurant);
-									mapReservation(root, bestReservation);
+									bestReservation.map(root, MainActivity.this);
 								}
 
 							}
@@ -178,7 +173,7 @@ public class MainActivity extends AppCompatActivity
 									View root = findViewById(R.id.recent);
 									root.setVisibility(View.VISIBLE);
 									recentReservation = Reservation.fromJson(jsonRestaurant);
-									mapReservation(root, recentReservation);
+									recentReservation.map(root, MainActivity.this);
 								}
 
 							}
@@ -225,46 +220,5 @@ public class MainActivity extends AppCompatActivity
 					.setPermissions(Manifest.permission.READ_CONTACTS)
 					.check();
 		}
-	}
-
-	/**
-	 * Reservation 객체를 뷰에 연결하는 메서드
-	 */
-	private void mapReservation(View root, final Reservation reservation)
-	{
-		ItemReservationInfoBinding itemBinding = DataBindingUtil.bind(root);
-		itemBinding.txtRestaurantName.setText(reservation.getRestaurant().getName());
-		itemBinding.txtRestaurantLocation.setText(reservation.getRestaurant().getLocationName());
-		itemBinding.txtFoodName.setText(reservation.getFood().getName());
-		itemBinding.txtRemained.setText(reservation.getRemained() + "");
-
-		// 클릭 리스너 등록
-		itemBinding.reservationCard.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				Intent intent = new Intent(MainActivity.this, RestaurantDetailActivity.class);
-				intent.putExtra("reservation", reservation);
-				startActivity(intent);
-			}
-		});
-
-		// 원가에 취소선 긋기
-		SpannableString txtPriceSpan = new SpannableString(reservation.getFood().getPrice() + "원");
-		txtPriceSpan.setSpan(new StrikethroughSpan(), 0, txtPriceSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-		itemBinding.txtPrice.setText(txtPriceSpan);
-		itemBinding.txtDiscountedPrice.setText(reservation.getDiscountedPrice() + "원");
-
-		// 이미지 url 불러오기
-		if (reservation.getImgUrl() != null)
-		{
-			Picasso.with(this).load(reservation.getImgUrl()).into(itemBinding.imgFood);
-		}
-
-		// 할인율 계산
-		double discountRate = 1 - (double) reservation.getDiscountedPrice() / reservation.getFood().getPrice();
-		discountRate *= 100;
-		itemBinding.txtDiscountRate.setText((int) discountRate + "%");
 	}
 }

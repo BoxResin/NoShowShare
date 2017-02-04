@@ -1,10 +1,23 @@
 package data;
 
+import android.content.Context;
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
+import android.view.View;
+
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import unithon.contest.noshowshare.RestaurantDetailActivity;
+import unithon.contest.noshowshare.databinding.ItemReservationInfoBinding;
 
 /**
  * 예약 정보 클래스
@@ -42,6 +55,47 @@ public class Reservation implements Serializable
 
 		return new Reservation(new Restaurant(storeName, phone, storeLocation, lat, lng, null),
 				new Food(foodName, price), foodNum, discountedPrice, foodImgUrl);
+	}
+
+	/**
+	 * Reservation 객체를 뷰에 연결하는 메서드
+	 */
+	public void map(View root, final Context context)
+	{
+		ItemReservationInfoBinding itemBinding = DataBindingUtil.bind(root);
+		itemBinding.txtRestaurantName.setText(getRestaurant().getName());
+		itemBinding.txtRestaurantLocation.setText(getRestaurant().getLocationName());
+		itemBinding.txtFoodName.setText(getFood().getName());
+		itemBinding.txtRemained.setText(getRemained() + "");
+
+		// 클릭 리스너 등록
+		itemBinding.reservationCard.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent intent = new Intent(context, RestaurantDetailActivity.class);
+				intent.putExtra("reservation", Reservation.this);
+				context.startActivity(intent);
+			}
+		});
+
+		// 원가에 취소선 긋기
+		SpannableString txtPriceSpan = new SpannableString(getFood().getPrice() + "원");
+		txtPriceSpan.setSpan(new StrikethroughSpan(), 0, txtPriceSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+		itemBinding.txtPrice.setText(txtPriceSpan);
+		itemBinding.txtDiscountedPrice.setText(getDiscountedPrice() + "원");
+
+		// 이미지 url 불러오기
+		if (getImgUrl() != null)
+		{
+			Picasso.with(context).load(getImgUrl()).into(itemBinding.imgFood);
+		}
+
+		// 할인율 계산
+		double discountRate = 1 - (double) getDiscountedPrice() / getFood().getPrice();
+		discountRate *= 100;
+		itemBinding.txtDiscountRate.setText((int) discountRate + "%");
 	}
 
 	public int getRemained()

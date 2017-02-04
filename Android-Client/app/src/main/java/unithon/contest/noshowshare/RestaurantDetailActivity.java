@@ -56,8 +56,6 @@ public class RestaurantDetailActivity extends AppCompatActivity
 		binding.txtRestaurantLocation.setText(reservation.getRestaurant().getLocationName());
 		binding.txtPhone.setText(reservation.getRestaurant().getPhone());
 
-
-
 		// 음식 정보 출력
 		binding.txtFoodName.setText(reservation.getFood().getName());
 		binding.txtRemained.setText(reservation.getRemained() + "");
