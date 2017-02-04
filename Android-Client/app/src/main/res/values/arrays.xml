@@ -1,0 +1,56 @@
+<resources>
+	<string-array name = "first_city">
+		<item>시/도</item>
+		<item>서울</item>
+		<item>경기</item>
+		<item>인천</item>
+		<item>경북</item>
+		<item>부산</item>
+		<item>대전</item>
+	</string-array>
+
+	<string-array name = "second_city">
+		<item>시/군/도</item>
+		<item>동작구</item>
+		<item>강남구</item>
+		<item>서초구</item>
+		<item>마포구</item>
+		<item>성북구</item>
+		<item>강북구</item>
+	</string-array>
+
+	<string-array name = "third_city">
+		<item>동/읍/면</item>
+		<item>개포1동</item>
+		<item>개포2동</item>
+		<item>개포4동</item>
+		<item>개포동</item>
+		<item>논현1동</item>
+		<item>논현2동</item>
+		<item>논현동</item>
+		<item>대치1동</item>
+		<item>대치2동</item>
+		<item>대치4동</item>
+		<item>대치동</item>
+		<item>도곡1동</item>
+		<item>도곡2동</item>
+		<item>도곡동</item>
+		<item>삼성1동</item>
+		<item>삼성2동</item>
+		<item>삼성동</item>
+		<item>세곡동</item>
+		<item>수서동</item>
+		<item>신사동</item>
+		<item>압구정동</item>
+		<item>역삼1동</item>
+		<item>역삼2동</item>
+		<item>역삼동</item>
+		<item>율현동</item>
+		<item>일원1동</item>
+		<item>일원2동</item>
+		<item>일원본동</item>
+		<item>일원동</item>
+		<item>자곡동</item>
+		<item>청담동</item>
+	</string-array>
+</resources>

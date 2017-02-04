@@ -45,22 +45,28 @@
 			android:layout_height = "41dp">
 
 			<Spinner
+				android:id = "@+id/spin_first_area"
 				android:layout_width = "0dp"
 				android:layout_height = "match_parent"
 				android:layout_weight = "1"
+				android:entries = "@array/first_city"
 				tools:background = "#b4b4b4"/>
 
 			<Spinner
+				android:id = "@+id/spin_second_area"
 				android:layout_width = "0dp"
 				android:layout_height = "match_parent"
 				android:layout_weight = "1"
+				android:entries = "@array/second_city"
 				tools:background = "#969696"/>
 
 			<Spinner
+				android:id = "@+id/spin_third_area"
 				android:layout_width = "0dp"
 				android:layout_height = "match_parent"
 				android:layout_weight = "1"
-				tools:background = "#b4b4b4"/>
+				tools:background = "#b4b4b4"
+				android:entries="@array/third_city"/>
 		</LinearLayout>
 
 		<!-- 스크롤 뷰 -->
