@@ -1,7 +1,10 @@
 package unithon.contest.noshowshare;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +15,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import data.Reservation;
 import unithon.contest.noshowshare.databinding.ActivityMainBinding;
@@ -191,7 +199,31 @@ public class MainActivity extends AppCompatActivity
 
 		else if (view == binding.btnMapMode)
 		{
-			startActivity(new Intent(this, MapActivity.class));
+			// GPS 권한이 있는지 확인한다.
+			new TedPermission(this)
+					.setPermissionListener(new PermissionListener()
+					{
+						@Override
+						public void onPermissionGranted()
+						{
+							LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+							if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+							{
+								Toast.makeText(MainActivity.this, "현재 위치제공자를 사용할 수 없습니다.\n설정에서 '위치'를 켜주세요.", Toast.LENGTH_SHORT).show();
+								return;
+							}
+
+							startActivity(new Intent(MainActivity.this, MapActivity.class));
+						}
+
+						@Override
+						public void onPermissionDenied(ArrayList<String> deniedPermissions)
+						{
+						}
+					}).setRationaleMessage("현재 위치를 가져오려면 GPS 권한을 승인하셔야 합니다.")
+					.setDeniedMessage("GPS 권한을 승인하지 않으면 현재 위치 정보를 가져올 수 없습니다.")
+					.setPermissions(Manifest.permission.READ_CONTACTS)
+					.check();
 		}
 	}
 
