@@ -82,7 +82,7 @@
                     android:layout_height = "wrap_content"
                     android:layout_gravity = "bottom"
                     android:layout_weight = "0"
-                    android:text = "4"
+                    android:text = "1"
                     android:textSize = "30sp"/>
                 <LinearLayout
                     android:layout_gravity="bottom"
@@ -91,11 +91,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <Button
+                        android:id="@+id/btn_up"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:background="@drawable/adjust_amount"/>
 
                     <Button
+                        android:id="@+id/btn_down"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
                         android:background="@drawable/adjust_amount2"/>

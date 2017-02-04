@@ -31,9 +31,9 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:id="@+id/price_sum"
             android:gravity="right"
-            android:text="238,000"
+            android:text="0"
             android:textSize="30dp" />
 
         <TextView
@@ -59,7 +59,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/phone" />
+            android:background="@drawable/phone"
+            android:layout_gravity="center"/>
 
         <EditText
             android:inputType="phone"
@@ -73,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-
+        android:layout_marginTop="145dp"
         android:background="@drawable/reservation_botton"
         android:clickable="true"
         android:gravity="center"

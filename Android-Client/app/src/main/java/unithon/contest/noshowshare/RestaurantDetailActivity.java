@@ -1,8 +1,11 @@
 package unithon.contest.noshowshare;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -18,7 +21,25 @@ import unithon.contest.noshowshare.databinding.ActivityRestaurantDetailBinding;
  */
 public class RestaurantDetailActivity extends AppCompatActivity
 {
+
 	private ActivityRestaurantDetailBinding binding;
+	private Reservation reservation;
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		long now=System.currentTimeMillis();
+		SharedPreferences preferences = getSharedPreferences("past", Context.MODE_PRIVATE);
+
+		long past = preferences.getLong("key",0);
+		if(now - past < 3600*2*1000){
+			binding.btnChange.setText("두 시간이 지난 후에 예약 가능");
+			binding.btnReserve.setEnabled(false);
+		}else{
+			binding.btnChange.setText("예약하기");
+			binding.btnReserve.setEnabled(true);
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -28,12 +49,14 @@ public class RestaurantDetailActivity extends AppCompatActivity
 
 		// 전달받은 예약 정보를 가져온다.
 		Intent intent = getIntent();
-		Reservation reservation = (Reservation) intent.getSerializableExtra("reservation");
+		reservation = (Reservation) intent.getSerializableExtra("reservation");
 
 		// 음식점 정보 출력
 		binding.txtRestaurantName.setText(reservation.getRestaurant().getName());
 		binding.txtRestaurantLocation.setText(reservation.getRestaurant().getLocationName());
 		binding.txtPhone.setText(reservation.getRestaurant().getPhone());
+
+
 
 		// 음식 정보 출력
 		binding.txtFoodName.setText(reservation.getFood().getName());
@@ -59,12 +82,15 @@ public class RestaurantDetailActivity extends AppCompatActivity
 		}
 		else if(view == binding.btnReserve)
 		{
-			SelectNumberOfPeopleDialog dialog = new SelectNumberOfPeopleDialog(this);
+
+
+			SelectNumberOfPeopleDialog dialog = new SelectNumberOfPeopleDialog(this,
+					reservation.getDiscountedPrice(), reservation.getRemained());
 			WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
 			params.copyFrom(dialog.getWindow().getAttributes());
 
-			params.width = 1200;
-			params.height = 1700;
+			params.width = ActionBar.LayoutParams.MATCH_PARENT;
+			params.height = ActionBar.LayoutParams.MATCH_PARENT;
 			dialog.getWindow().setAttributes(params);
 			dialog.show();
 		}
