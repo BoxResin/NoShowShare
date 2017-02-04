@@ -80,8 +80,12 @@ public class MainActivity extends AppCompatActivity
 							int discountedPrice = jsonRestaurant.getInt("discount_price");
 							int foodNum = jsonRestaurant.getInt("food_num");
 
+							String storeLocation = String.format("%s %s %s",
+									jsonRestaurant.getString("city"), jsonRestaurant.getString("goo"),
+									jsonRestaurant.getString("dong"));
+
 							// 화면 갱신
-							Reservation reservation = new Reservation(new Restaurant(storeName, phone, lat, lng, null),
+							Reservation reservation = new Reservation(new Restaurant(storeName, phone, storeLocation, lat, lng, null),
 									new Food(foodName, price), foodNum, discountedPrice);
 							LinearLayout root = (LinearLayout) findViewById(R.id.best);
 							root.setVisibility(View.VISIBLE);
@@ -121,8 +125,12 @@ public class MainActivity extends AppCompatActivity
 									int discountedPrice = jsonRestaurant.getInt("discount_price");
 									int foodNum = jsonRestaurant.getInt("food_num");
 
+									String storeLocation = String.format("%s %s %s",
+											jsonRestaurant.getString("city"), jsonRestaurant.getString("goo"),
+											jsonRestaurant.getString("dong"));
+
 									// 화면 갱신
-									Reservation reservation = new Reservation(new Restaurant(storeName, phone, lat, lng, null),
+									Reservation reservation = new Reservation(new Restaurant(storeName, phone, storeLocation, lat, lng, null),
 											new Food(foodName, price), foodNum, discountedPrice);
 									LinearLayout root = (LinearLayout) findViewById(R.id.recent);
 									root.setVisibility(View.VISIBLE);

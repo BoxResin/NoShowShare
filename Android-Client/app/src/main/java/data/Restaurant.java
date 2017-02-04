@@ -25,10 +25,11 @@ public class Restaurant
 	 * @param lng 식당 경도
 	 * @param imgUrl 대표 이미지 url
 	 */
-	public Restaurant(String name, String phone, double lat, double lng, String imgUrl)
+	public Restaurant(String name, String phone, String locationName, double lat, double lng, String imgUrl)
 	{
 		this.name = name;
 		this.phone = phone;
+		this.locationName = locationName;
 		this.lat = lat;
 		this.lng = lng;
 		this.imgUrl = imgUrl;
