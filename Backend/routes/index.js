@@ -12,9 +12,6 @@ router.post('/login', function(req, res, next) {
   var name = req.body.name;
   var pw = req.body.password;
 
-  //var imgSQL = 'SELECT food_img_url, main FROM food_img WHERE enroll_id=?';
-
-  //var query = "SELECT * FROM owner WHERE owner_name='" + name + "'";
   var query = 'SELECT * FROM owner WHERE owner_name=?';
   connection.query(query, name, function (error, result) {
       if(error) {
@@ -31,7 +28,6 @@ router.post('/login', function(req, res, next) {
                   console.log("error : " + error);
               } else {
                 console.log('info : ' + info);
-                //res.render('register', {store : JSON.stringify(info)});
                 res.render('register', {store : JSON.stringify(info)});
               }
             });
@@ -64,9 +60,6 @@ router.post('/register', function (req, res, next){
       twoDigits(date.getMinutes(), 2)+':'+
       twoDigits(date.getSeconds(), 2);
 
-  console.log('food : ' + food_img);
-
-/*
   var query = 'INSERT INTO food(phone, food_name, food_num, price, discount_price, update_time) values(?, ?, ?, ?, ?, ?)';
   var params = [phone, food_name, food_num, price, discount_price, update_time];
   connection.query(query, params, function (error, result) {
@@ -85,7 +78,6 @@ router.post('/register', function (req, res, next){
         });
       }
   });
-  */
 });
 
 var twoDigits = function(str, digits) {
