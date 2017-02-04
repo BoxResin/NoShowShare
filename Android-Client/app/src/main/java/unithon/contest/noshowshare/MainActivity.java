@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity
 		itemBinding.txtRestaurantName.setText(reservation.getRestaurant().getName());
 		itemBinding.txtRestaurantLocation.setText(reservation.getRestaurant().getLocationName());
 		itemBinding.txtFoodName.setText(reservation.getFood().getName());
+		itemBinding.txtRemained.setText(reservation.getRemained() + "");
 
 		// 원가에 취소선 긋기
 		SpannableString txtPriceSpan = new SpannableString(reservation.getFood().getPrice() + "원");
@@ -233,9 +234,9 @@ public class MainActivity extends AppCompatActivity
 			Picasso.with(this).load(reservation.getImgUrl()).into(itemBinding.imgFood);
 		}
 
+		// 할인율 계산
 		double discountRate = 1 - (double) reservation.getDiscountedPrice() / reservation.getFood().getPrice();
 		discountRate *= 100;
 		itemBinding.txtDiscountRate.setText((int) discountRate + "%");
-		itemBinding.txtRemained.setText(reservation.getRemained() + "");
 	}
 }
