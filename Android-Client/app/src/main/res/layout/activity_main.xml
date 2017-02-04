@@ -9,81 +9,101 @@
 		android:orientation = "vertical"
 		tools:context = "unithon.contest.noshowshare.MainActivity">
 
-		<RelativeLayout
+		<!-- 툴바 레이아웃 -->
+		<android.support.design.widget.AppBarLayout
 			android:layout_width = "match_parent"
-			android:layout_height = "62dp"
-			tools:background = "#FF0">
+			android:layout_height = "wrap_content"
+			android:orientation = "vertical">
 
-			<TextView
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:layout_centerHorizontal = "true"
-				android:layout_centerVertical = "true"
-				android:text = "타이틀 영역"
-				android:textSize = "25sp"/>
+			<!-- 타이틀 바 -->
+			<RelativeLayout
+				android:layout_width = "match_parent"
+				android:layout_height = "62dp"
+				android:background = "#FFF"
+				tools:background = "#FF0">
 
-			<!-- 사용자 정보 버튼 -->
-			<Button
-				android:id = "@+id/btn_user_info"
-				android:layout_width = "40dp"
-				android:layout_height = "40dp"
-				android:layout_centerVertical = "true"
-				android:background = "@drawable/test"
-				android:onClick = "onClick"
-				android:layout_margin="10dp"/>
+				<TextView
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					android:layout_centerHorizontal = "true"
+					android:layout_centerVertical = "true"
+					android:text = "타이틀 영역"
+					android:textSize = "25sp"/>
 
-			<!-- 지도화면 버튼 -->
-			<Button
-				android:id = "@+id/btn_map_mode"
-				android:layout_width = "40dp"
-				android:layout_height = "40dp"
-				android:layout_alignParentRight = "true"
-				android:layout_centerVertical = "true"
-				android:onClick = "onClick"/>
-		</RelativeLayout>
+				<!-- 사용자 정보 버튼 -->
+				<Button
+					android:id = "@+id/btn_user_info"
+					android:layout_width = "30dp"
+					android:layout_height = "30dp"
+					android:layout_centerVertical = "true"
+					android:layout_marginLeft = "15dp"
+					android:background = "@drawable/mypage"
+					android:onClick = "onClick"/>
 
-		<!-- 지역 선택 스피너 -->
-		<LinearLayout
-			android:layout_width = "match_parent"
-			android:layout_height = "41dp">
+				<!-- 지도화면 버튼 -->
+				<Button
+					android:id = "@+id/btn_map_mode"
+					android:layout_width = "35dp"
+					android:layout_height = "35dp"
+					android:layout_alignParentRight = "true"
+					android:layout_centerVertical = "true"
+					android:layout_marginRight = "15dp"
+					android:background = "@drawable/map"
+					android:onClick = "onClick"/>
+			</RelativeLayout>
 
-			<Spinner
-				android:id = "@+id/spin_first_area"
-				android:layout_width = "0dp"
-				android:layout_height = "match_parent"
-				android:layout_weight = "1"
-				android:entries = "@array/first_city"
-				tools:background = "#b4b4b4"/>
+			<View
+				android:layout_width = "match_parent"
+				android:layout_height = "1dp"
+				android:background = "#eaeaea"/>
 
-			<Spinner
-				android:id = "@+id/spin_second_area"
-				android:layout_width = "0dp"
-				android:layout_height = "match_parent"
-				android:layout_weight = "1"
-				android:entries = "@array/second_city"
-				tools:background = "#969696"/>
+			<!-- 지역 선택 스피너 -->
+			<LinearLayout
+				android:layout_width = "match_parent"
+				android:layout_height = "41dp">
 
-			<Spinner
-				android:id = "@+id/spin_third_area"
-				android:layout_width = "0dp"
-				android:layout_height = "match_parent"
-				android:layout_weight = "1"
-				android:entries = "@array/third_city"
-				tools:background = "#b4b4b4"/>
-		</LinearLayout>
+				<Spinner
+					android:id = "@+id/spin_first_area"
+					android:layout_width = "0dp"
+					android:layout_height = "match_parent"
+					android:layout_weight = "1"
+					android:background = "#FFF"
+					android:entries = "@array/first_city"
+					tools:background = "#b4b4b4"/>
+
+				<Spinner
+					android:id = "@+id/spin_second_area"
+					android:layout_width = "0dp"
+					android:layout_height = "match_parent"
+					android:layout_weight = "1"
+					android:background = "#FFF"
+					android:entries = "@array/second_city"
+					tools:background = "#969696"/>
+
+				<Spinner
+					android:id = "@+id/spin_third_area"
+					android:layout_width = "0dp"
+					android:layout_height = "match_parent"
+					android:layout_weight = "1"
+					android:background = "#FFF"
+					android:entries = "@array/third_city"
+					tools:background = "#b4b4b4"/>
+			</LinearLayout>
+		</android.support.design.widget.AppBarLayout>
+
 
 		<!-- 최고 할인율 & 최신 등록 화면 -->
 		<ScrollView
 			android:id = "@+id/best_recent"
 			android:layout_width = "match_parent"
-			android:layout_height = "match_parent">
+			android:layout_height = "match_parent"
+			tools:visibility = "gone">
 
 			<!-- 콘첸트 영역 -->
 			<LinearLayout
 				android:layout_width = "match_parent"
 				android:layout_height = "wrap_content"
-				android:orientation = "vertical"
-				tools:visibility = "gone">
+				android:orientation = "vertical">
 
 				<LinearLayout
 					android:layout_width = "match_parent"
@@ -134,6 +154,10 @@
 			android:id = "@+id/list_reservation"
 			android:layout_width = "match_parent"
 			android:layout_height = "wrap_content"
+			android:clipToPadding = "false"
+			android:divider = "@android:color/transparent"
+			android:dividerHeight = "15dp"
+			android:paddingTop = "16dp"
 			android:visibility = "gone"
 			tools:visibility = "visible"/>
 	</LinearLayout>
