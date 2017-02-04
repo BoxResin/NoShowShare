@@ -24,10 +24,12 @@ public class Reservation
 		this.remained = remained;
 	}
 
-	public Reservation(Restaurant restaurant, Food food)
+	public Reservation(Restaurant restaurant, Food food, int remained, int discountedPrice)
 	{
 		this.restaurant = restaurant;
 		this.food = food;
+		this.remained = remained;
+		this.discountedPrice = discountedPrice;
 	}
 
 	public String getDate()
@@ -68,5 +70,15 @@ public class Reservation
 	public void setFood(Food food)
 	{
 		this.food = food;
+	}
+
+	public int getDiscountedPrice()
+	{
+		return discountedPrice;
+	}
+
+	public void setDiscountedPrice(int discountedPrice)
+	{
+		this.discountedPrice = discountedPrice;
 	}
 }
