@@ -1,4 +1,5 @@
 var express = require('express');
+var distance = require('geo-distance-js');
 var connection = require('../libs/dbConnect.js').dbConnect();
 var router = express.Router();
 
@@ -14,14 +15,45 @@ router.get('/best', function (req, res, next) {
     var bestSQL = 'SELECT s.store_name, s.phone, s.lat, s.lng, s.etc, s.img, f.enroll_id, f.food_name, f.food_num, f.price, ' +
         'f.discount_price, f.update_time FROM store s LEFT JOIN food f ON s.phone=f.phone ' +
         'WHERE f.enroll_id NOT IN(SELECT enroll_id FROM reserve_list) ORDER BY price/discount_price desc LIMIT 1';
-    var params = [];
-    noShowList(res, bestSQL, params);
+    noShowList(res, bestSQL, []);
+});
+
+router.get('/recent', function (req, res, next) {
+    var latestSQL = 'SELECT s.store_name, s.phone, s.lat, s.lng, s.etc, s.img, f.enroll_id, f.food_name, f.food_num, f.price, ' +
+        'f.discount_price, f.update_time FROM store s LEFT JOIN food f ON s.phone=f.phone ' +
+        'WHERE f.enroll_id NOT IN(SELECT enroll_id FROM reserve_list) ORDER BY f.update_time desc LIMIT 1';
+    noShowList(res, latestSQL, [])
+});
+
+router.get('/reservation/:m', function (req, res, next) {
+    var meter = req.params.m;
+    var lat = req.query.lat;
+    var lng = req.query.lng;
+    var distanceSQL = 'SELECT s.phone, s.lat, s.lng FROM store s LEFT JOIN food f ON s.phone=f.phone ' +
+        'WHERE f.enroll_id NOT IN(SELECT enroll_id FROM reserve_list)';
+    connection.query(distanceSQL, function (error, location) {
+        if(error) {
+            res.status(500).json({
+                result: 'false',
+                list: location
+            });
+        } else {
+            var list = [];
+            for(var i=0; i<location.length; i++) {
+                var dist = distance.getDistance({lat: lat, lng: lng}, {lat: location[i].lat, lng: location[i].lng});
+                console.log(dist);
+                if(dist <= 1000) {
+                    location[i].dist = dist;
+                    list.push(location[i])
+                }
+            }
+        }
+    })
 });
 
 var noShowList = function(res, SQL, params) {
     connection.query(SQL, params, function (error, list) {
         if(error) {
-            console.log(error);
             res.status(500).json({
                 result: 'false',
                 list: list
