@@ -8,6 +8,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
 import android.view.View;
+import android.view.WindowManager;
 
 import data.Reservation;
 import unithon.contest.noshowshare.databinding.ActivityRestaurantDetailBinding;
@@ -55,6 +56,17 @@ public class RestaurantDetailActivity extends AppCompatActivity
 		if (view == binding.btnBack)
 		{
 			finish();
+		}
+		else if(view == binding.btnReserve)
+		{
+			SelectNumberOfPeopleDialog dialog = new SelectNumberOfPeopleDialog(this);
+			WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+			params.copyFrom(dialog.getWindow().getAttributes());
+
+			params.width = 1200;
+			params.height = 1700;
+			dialog.getWindow().setAttributes(params);
+			dialog.show();
 		}
 	}
 }

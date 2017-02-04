@@ -17,7 +17,6 @@ public class WarningReservationDialog extends Dialog implements View.OnClickList
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-
         setContentView(R.layout.dialog_warning_reservation);
 
         textView = (TextView) findViewById(R.id.btn_confirm);

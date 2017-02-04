@@ -62,6 +62,7 @@
             android:background="@drawable/phone" />
 
         <EditText
+            android:inputType="phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="전화 번호를 입력해 주세요." />
@@ -72,6 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+
         android:background="@drawable/reservation_botton"
         android:clickable="true"
         android:gravity="center"
