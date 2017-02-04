@@ -33,9 +33,10 @@ public class Reservation implements Serializable
 		int discountedPrice = json.getInt("discount_price");
 		int foodNum = json.getInt("food_num");
 
-		String storeLocation = String.format("%s %s %s",
-				json.getString("city"), json.getString("goo"),
-				json.getString("dong"));
+//		String storeLocation = String.format("%s %s %s",
+//				json.getString("city"), json.getString("goo"),
+//				json.getString("dong"));
+		String storeLocation = "";
 
 		String foodImgUrl = json.getString("img");
 
