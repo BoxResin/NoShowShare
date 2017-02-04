@@ -79,6 +79,7 @@
                     android:textColor="#b2b2b2"
                     />
                 <TextView
+                    android:id="@+id/btn_reserve"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -87,6 +88,7 @@
                     android:padding="10sp"
                     android:background="@color/colorPrimaryDark"
                     android:text="예약하기"
+                    android:onClick="onClick"
                     />
                 </LinearLayout>
             </LinearLayout>
