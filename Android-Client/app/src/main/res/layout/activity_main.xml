@@ -21,15 +21,22 @@
 				android:layout_height = "62dp"
 				android:background = "#FFF"
 				tools:background = "#FF0">
+				
+				<ImageView
+					android:layout_width="150dp"
+					android:layout_height="50dp"
+					android:layout_centerHorizontal = "true"
+					android:layout_centerVertical = "true"
+					android:src="@drawable/logo"/>
 
-				<TextView
+<!--				<TextView
 					android:layout_width = "wrap_content"
 					android:layout_height = "wrap_content"
 					android:layout_centerHorizontal = "true"
 					android:layout_centerVertical = "true"
 					android:text = "타이틀 영역"
 					android:textSize = "25sp"/>
-
+-->
 				<!-- 사용자 정보 버튼 -->
 				<Button
 					android:id = "@+id/btn_user_info"
@@ -109,7 +116,14 @@
 					android:layout_width = "match_parent"
 					android:layout_height = "54dp"
 					android:background = "#e7e7e7"
+					android:orientation="horizontal"
 					android:gravity = "center">
+
+					<ImageView
+						android:layout_width="25dp"
+						android:layout_height="25dp"
+						android:layout_marginRight="3dp"
+						android:src="@drawable/discount" />
 
 					<TextView
 						android:layout_width = "wrap_content"
@@ -130,7 +144,14 @@
 					android:layout_width = "match_parent"
 					android:layout_height = "54dp"
 					android:background = "#e7e7e7"
-					android:gravity = "center">
+					android:gravity = "center"
+					android:orientation="horizontal">
+
+					<ImageView
+						android:layout_width="25dp"
+						android:layout_height="25dp"
+						android:src="@drawable/clock"
+						android:layout_marginRight="3dp"/>
 
 					<TextView
 						android:layout_width = "wrap_content"
