@@ -1,14 +1,101 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-	android:id = "@+id/activity_main"
+<layout
 	xmlns:android = "http://schemas.android.com/apk/res/android"
-	xmlns:tools = "http://schemas.android.com/tools"
-	android:layout_width = "match_parent"
-	android:layout_height = "match_parent"
-	tools:context = "unithon.contest.noshowshare.MainActivity">
+	xmlns:tools = "http://schemas.android.com/tools">
 
-	<fragment
+	<LinearLayout
+		android:id = "@+id/activity_main"
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
-		android:name = "unithon.contest.noshowshare.ReservationListFragment"/>
-</RelativeLayout>
+		android:orientation = "vertical"
+		tools:context = "unithon.contest.noshowshare.MainActivity">
+
+		<RelativeLayout
+			android:layout_width = "match_parent"
+			android:layout_height = "62dp"
+			tools:background = "#FF0">
+
+			<TextView
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:layout_centerHorizontal = "true"
+				android:layout_centerVertical = "true"
+				android:text = "타이틀 영역"
+				android:textSize = "25sp"/>
+
+			<!-- 사용자 정보 버튼 -->
+			<Button
+				android:id = "@+id/btn_user_info"
+				android:layout_width = "40dp"
+				android:layout_height = "40dp"
+				android:layout_centerVertical = "true"/>
+
+			<!-- 지도화면 버튼 -->
+			<Button
+				android:id = "@+id/btn_map_mode"
+				android:layout_width = "40dp"
+				android:layout_height = "40dp"
+				android:layout_alignParentRight = "true"
+				android:layout_centerVertical = "true"
+				android:onClick = "onClick"/>
+		</RelativeLayout>
+
+		<LinearLayout
+			android:layout_width = "match_parent"
+			android:layout_height = "41dp">
+
+			<Spinner
+				android:layout_width = "0dp"
+				android:layout_height = "match_parent"
+				android:layout_weight = "1"
+				tools:background = "#b4b4b4"/>
+
+			<Spinner
+				android:layout_width = "0dp"
+				android:layout_height = "match_parent"
+				android:layout_weight = "1"
+				tools:background = "#969696"/>
+
+			<Spinner
+				android:layout_width = "0dp"
+				android:layout_height = "match_parent"
+				android:layout_weight = "1"
+				tools:background = "#b4b4b4"/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width = "match_parent"
+			android:layout_height = "54dp"
+			android:background = "#e7e7e7"
+			android:gravity = "center">
+
+			<TextView
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:text = "최고 할인율"
+				android:textSize = "20sp"/>
+		</LinearLayout>
+
+		<include
+			layout = "@layout/item_reservation_info"
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"/>
+
+		<LinearLayout
+			android:layout_width = "match_parent"
+			android:layout_height = "54dp"
+			android:background = "#e7e7e7"
+			android:gravity = "center">
+
+			<TextView
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:text = "최신 등록"
+				android:textSize = "20sp"/>
+		</LinearLayout>
+
+		<include
+			layout = "@layout/item_reservation_info"
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"/>
+	</LinearLayout>
+</layout>

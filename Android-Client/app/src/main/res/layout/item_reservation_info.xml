@@ -1,5 +1,8 @@
 <!-- 예약 정보 리스트뷰 항목 레이아웃 -->
-<layout xmlns:android = "http://schemas.android.com/apk/res/android">
+<layout
+	xmlns:android = "http://schemas.android.com/apk/res/android"
+	xmlns:tools = "http://schemas.android.com/tools">
+
 	<LinearLayout
 		android:layout_width = "match_parent"
 		android:layout_height = "wrap_content">
@@ -7,7 +10,7 @@
 		<!-- 음식 이미지 -->
 		<ImageView
 			android:id = "@+id/img_food"
-			android:layout_width = "70dp"
+			android:layout_width = "124dp"
 			android:layout_height = "match_parent"
 			android:src = "@mipmap/ic_launcher"/>
 
@@ -15,7 +18,7 @@
 			android:layout_width = "match_parent"
 			android:layout_height = "match_parent"
 			android:gravity = "center_vertical"
-			android:padding = "10dp">
+			android:padding = "25dp">
 
 			<!-- 음식점 이름 -->
 			<TextView
@@ -26,25 +29,40 @@
 				android:textSize = "20sp"
 				android:textStyle = "bold"/>
 
+			<TextView
+				android:id = "@+id/txt_restaurant_location"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:layout_below = "@id/txt_restaurant_name"
+				android:layout_marginTop = "5dp"
+				android:text = "음식점 위치"/>
+
+			<View
+				android:id = "@+id/some"
+				android:layout_width = "170dp"
+				android:layout_height = "50dp"
+				android:layout_below = "@id/txt_restaurant_location"
+				android:layout_centerHorizontal = "true"
+				android:layout_marginBottom = "20dp"
+				android:layout_marginTop = "20dp"
+				tools:background = "#FF0"/>
+
 			<!-- 음식 이름 -->
 			<TextView
 				android:id = "@+id/txt_food_name"
 				android:layout_width = "wrap_content"
 				android:layout_height = "wrap_content"
-				android:layout_below = "@id/txt_restaurant_name"
-				android:layout_marginTop = "10dp"
-				android:text = "음식 이름"/>
+				android:layout_below = "@id/some"
+				android:text = "음식 이름"
+				android:textSize="17dp"/>
 
-			<!-- 음식 단가 -->
+			<!-- 음식 원가 -->
 			<TextView
 				android:id = "@+id/txt_price"
 				android:layout_width = "wrap_content"
 				android:layout_height = "wrap_content"
-				android:layout_alignBottom = "@id/txt_food_name"
-				android:layout_marginLeft = "10dp"
-				android:layout_toRightOf = "@id/txt_food_name"
-				android:text = "단가￦"
-				android:textColor = "#FF0000"/>
+				android:layout_below = "@id/txt_food_name"
+				android:text = "원가￦"/>
 
 			<!-- 음식 남은 수량 -->
 			<TextView
