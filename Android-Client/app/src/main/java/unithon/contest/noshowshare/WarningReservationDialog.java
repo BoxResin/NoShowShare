@@ -53,6 +53,7 @@ public class WarningReservationDialog extends Dialog implements View.OnClickList
 			dismiss();
 			Intent intent = new Intent(getContext(), RestaurantDetailActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+			intent.putExtra("reservation", reservation);
 			getContext().startActivity(intent);
 		}
 	}

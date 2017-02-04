@@ -15,6 +15,7 @@ import android.view.WindowManager;
 
 import data.Reservation;
 import unithon.contest.noshowshare.databinding.ActivityRestaurantDetailBinding;
+import util.G;
 
 /**
  * 예약 상세정보 액티비티
@@ -33,7 +34,7 @@ public class RestaurantDetailActivity extends AppCompatActivity
 		SharedPreferences preferences = getSharedPreferences("past", Context.MODE_PRIVATE);
 
 		long past = preferences.getLong("key", 0);
-		if (now - past < 3600 * 2 * 1000)
+		if (now - past < G.VALID_RESERVATION_TIME_MS)
 		{
 			binding.btnChange.setText("두 시간이 지난 후에 예약 가능");
 			binding.btnReserve.setEnabled(false);
