@@ -98,13 +98,12 @@
 			</LinearLayout>
 		</android.support.design.widget.AppBarLayout>
 
-
 		<!-- 최고 할인율 & 최신 등록 화면 -->
 		<ScrollView
 			android:id = "@+id/best_recent"
 			android:layout_width = "match_parent"
 			android:layout_height = "match_parent"
-			tools:visibility = "gone">
+			tools:visibility = "visible">
 
 			<!-- 콘첸트 영역 -->
 			<LinearLayout
@@ -180,6 +179,6 @@
 			android:dividerHeight = "15dp"
 			android:paddingTop = "16dp"
 			android:visibility = "gone"
-			tools:visibility = "visible"/>
+			tools:visibility = "gone"/>
 	</LinearLayout>
 </layout>

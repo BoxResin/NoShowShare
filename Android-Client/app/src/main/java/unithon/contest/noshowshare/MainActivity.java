@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity
 	private ActivityMainBinding binding;
 	private ArrayAdapter<Reservation> reservationAdapter;
 
+	private Reservation bestReservation; // 최고 할인 정보
+	private Reservation recentReservation; // 최신 정보
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -52,7 +55,6 @@ public class MainActivity extends AppCompatActivity
 			}
 		};
 		binding.listReservation.setAdapter(reservationAdapter);
-
 
 		// 지역 선택 스피너 초기화
 		AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener()
@@ -118,33 +120,34 @@ public class MainActivity extends AppCompatActivity
 		// 최고 할인률 정보 가져오기
 		new HttpRequester("http://52.78.44.216:3000/users/best").request(HttpRequester.Method.GET,
 				null, 7000, new HttpRequester.HttpRequestListener()
-		{
-			@Override
-			public void onHttpResult(String data, HttpRequester.Error error)
-			{
-				try
 				{
-					if (error == HttpRequester.Error.OK)
+					@Override
+					public void onHttpResult(String data, HttpRequester.Error error)
 					{
-						JSONObject jsonRoot = new JSONObject(data);
-						if (jsonRoot.getString("result").equals("true"))
+						try
 						{
-							// json에서 음식점 예약 정보를 가져온다.
-							JSONObject jsonRestaurant = jsonRoot.getJSONArray("list").getJSONObject(0);
+							if (error == HttpRequester.Error.OK)
+							{
+								JSONObject jsonRoot = new JSONObject(data);
+								if (jsonRoot.getString("result").equals("true"))
+								{
+									// json에서 음식점 예약 정보를 가져온다.
+									JSONObject jsonRestaurant = jsonRoot.getJSONArray("list").getJSONObject(0);
 
-							// 화면 갱신
-							View root = findViewById(R.id.best);
-							root.setVisibility(View.VISIBLE);
-							mapReservation(root, Reservation.fromJson(jsonRestaurant));
+									// 화면 갱신
+									View root = findViewById(R.id.best);
+									root.setVisibility(View.VISIBLE);
+									bestReservation = Reservation.fromJson(jsonRestaurant);
+									mapReservation(root, bestReservation);
+								}
+
+							}
 						}
-
+						catch (JSONException e)
+						{
+						}
 					}
-				}
-				catch (JSONException e)
-				{
-				}
-			}
-		});
+				});
 
 		// 최신 등록 정보 가져오기
 		new HttpRequester("http://52.78.44.216:3000/users/recent").request(HttpRequester.Method.GET,
@@ -166,7 +169,8 @@ public class MainActivity extends AppCompatActivity
 									// 화면 갱신
 									View root = findViewById(R.id.recent);
 									root.setVisibility(View.VISIBLE);
-									mapReservation(root, Reservation.fromJson(jsonRestaurant));
+									recentReservation = Reservation.fromJson(jsonRestaurant);
+									mapReservation(root, recentReservation);
 								}
 
 							}
@@ -194,12 +198,25 @@ public class MainActivity extends AppCompatActivity
 	/**
 	 * Reservation 객체를 뷰에 연결하는 메서드
 	 */
-	private void mapReservation(View root, Reservation reservation)
+	private void mapReservation(View root, final Reservation reservation)
 	{
 		ItemReservationInfoBinding itemBinding = DataBindingUtil.bind(root);
 		itemBinding.txtRestaurantName.setText(reservation.getRestaurant().getName());
 		itemBinding.txtRestaurantLocation.setText(reservation.getRestaurant().getLocationName());
 		itemBinding.txtFoodName.setText(reservation.getFood().getName());
+		itemBinding.txtRemained.setText(reservation.getRemained() + "");
+
+		// 클릭 리스너 등록
+		itemBinding.reservationCard.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent intent = new Intent(MainActivity.this, RestaurantDetailActivity.class);
+				intent.putExtra("reservation", reservation);
+				startActivity(intent);
+			}
+		});
 
 		// 원가에 취소선 긋기
 		SpannableString txtPriceSpan = new SpannableString(reservation.getFood().getPrice() + "원");
@@ -213,9 +230,9 @@ public class MainActivity extends AppCompatActivity
 			Picasso.with(this).load(reservation.getImgUrl()).into(itemBinding.imgFood);
 		}
 
+		// 할인율 계산
 		double discountRate = 1 - (double) reservation.getDiscountedPrice() / reservation.getFood().getPrice();
 		discountRate *= 100;
 		itemBinding.txtDiscountRate.setText((int) discountRate + "%");
-		itemBinding.txtRemained.setText(reservation.getRemained() + "");
 	}
 }

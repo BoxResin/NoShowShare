@@ -3,12 +3,13 @@ package data;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * 예약 정보 클래스
  */
-public class Reservation
+public class Reservation implements Serializable
 {
 	private String date; // 예약이 게시된 날짜
 	private Restaurant restaurant; // 음식점 정보
@@ -32,9 +33,10 @@ public class Reservation
 		int discountedPrice = json.getInt("discount_price");
 		int foodNum = json.getInt("food_num");
 
-		String storeLocation = String.format("%s %s %s",
-				json.getString("city"), json.getString("goo"),
-				json.getString("dong"));
+//		String storeLocation = String.format("%s %s %s",
+//				json.getString("city"), json.getString("goo"),
+//				json.getString("dong"));
+		String storeLocation = "";
 
 		String foodImgUrl = json.getString("img");
 
