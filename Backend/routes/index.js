@@ -24,11 +24,11 @@ var upload = multer({
     })
 });
 
-router.get('/register', function (req, res, next) {
+router.get('/enroll', function (req, res, next) {
     res.render('register');
 });
 
-router.post('/register', upload.array('food_img', 10), function (req, res, next) {
+router.post('/enroll', upload.array('food_img', 10), function (req, res, next) {
     var img_url = [];
     for(var i=0; i<req.files.length; i++) {
         img_url.push(req.files[i].location);

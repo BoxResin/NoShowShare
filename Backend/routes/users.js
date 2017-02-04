@@ -37,15 +37,18 @@ router.get('/reservation/:m', function (req, res, next) {
             });
         } else {
             var list = [];
+            var val = '';
             for(var i=0; i<location.length; i++) {
                 var dist = getDistance(lat, lng, location[i].lat, location[i].lng);
                 if(dist <= meter) {
                     list.push(location[i].phone);
+                    if(val === '') val += '?';
+                    else val += ',?';
                 }
             }
             var nearbySQL = 'SELECT s.store_name, s.phone, s.lat, s.lng, s.etc, s.img, f.enroll_id, f.food_name, f.food_num, f.price, ' +
                 'f.discount_price, f.update_time FROM store s LEFT JOIN food f ON s.phone=f.phone ' +
-                'WHERE f.enroll_id NOT IN(SELECT enroll_id FROM reserve_list) AND f.phone IN(?)';
+                'WHERE f.enroll_id NOT IN(SELECT enroll_id FROM reserve_list) AND f.phone IN('+val+')';
             noShowList(res, nearbySQL, list);
         }
     })
