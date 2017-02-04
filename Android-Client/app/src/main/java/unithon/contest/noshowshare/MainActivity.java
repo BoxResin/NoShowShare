@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -198,6 +200,11 @@ public class MainActivity extends AppCompatActivity
 		itemBinding.txtFoodName.setText(reservation.getFood().getName());
 		itemBinding.txtPrice.setText(reservation.getFood().getPrice() + "원");
 		itemBinding.txtDiscountedPrice.setText(reservation.getDiscountedPrice() + "원");
+		if (reservation.getImgUrl() != null)
+		{
+			Picasso.with(this).load(reservation.getImgUrl()).resize(460,
+					860).noFade().into(itemBinding.imgFood);
+		}
 
 		double discountRate = 1 - (double) reservation.getDiscountedPrice() / reservation.getFood().getPrice();
 		discountRate *= 100;

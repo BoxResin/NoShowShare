@@ -16,6 +16,7 @@ public class Reservation
 	private Food food;
 	private int remained; // 남은 수량
 	private int discountedPrice; // 할인된 가격
+	private String imgUrl; // 대표 이미지 url
 
 	/**
 	 * JSON 오브젝트를 Reservation 객체로 파싱하는 메서드
@@ -35,8 +36,10 @@ public class Reservation
 				json.getString("city"), json.getString("goo"),
 				json.getString("dong"));
 
+		String foodImgUrl = json.getString("img");
+
 		return new Reservation(new Restaurant(storeName, phone, storeLocation, lat, lng, null),
-				new Food(foodName, price), foodNum, discountedPrice);
+				new Food(foodName, price), foodNum, discountedPrice, foodImgUrl);
 	}
 
 	public int getRemained()
@@ -49,12 +52,13 @@ public class Reservation
 		this.remained = remained;
 	}
 
-	public Reservation(Restaurant restaurant, Food food, int remained, int discountedPrice)
+	public Reservation(Restaurant restaurant, Food food, int remained, int discountedPrice, String imgUrl)
 	{
 		this.restaurant = restaurant;
 		this.food = food;
 		this.remained = remained;
 		this.discountedPrice = discountedPrice;
+		this.imgUrl = imgUrl;
 	}
 
 	public String getDate()
@@ -105,5 +109,15 @@ public class Reservation
 	public void setDiscountedPrice(int discountedPrice)
 	{
 		this.discountedPrice = discountedPrice;
+	}
+
+	public String getImgUrl()
+	{
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl)
+	{
+		this.imgUrl = imgUrl;
 	}
 }
