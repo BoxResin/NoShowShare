@@ -97,8 +97,7 @@ public class RestaurantDetailActivity extends AppCompatActivity
 		{
 
 
-			SelectNumberOfPeopleDialog dialog = new SelectNumberOfPeopleDialog(this,
-					reservation.getDiscountedPrice(), reservation.getRemained());
+			SelectNumberOfPeopleDialog dialog = new SelectNumberOfPeopleDialog(this, reservation);
 			WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
 			params.copyFrom(dialog.getWindow().getAttributes());
 

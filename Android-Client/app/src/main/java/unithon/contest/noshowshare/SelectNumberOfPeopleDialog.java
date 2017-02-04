@@ -9,6 +9,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import data.Reservation;
+
 /**
  * Created by minhyeon on 2017-02-04.
  */
@@ -16,6 +18,7 @@ import android.widget.TextView;
 public class SelectNumberOfPeopleDialog extends Dialog implements View.OnClickListener{
         private TextView confirmBtn;
 
+    private Reservation reservation;
     private int price;
     private int maxCount;
 
@@ -27,12 +30,13 @@ public class SelectNumberOfPeopleDialog extends Dialog implements View.OnClickLi
     private int currentCount;
 
 
-    public SelectNumberOfPeopleDialog(Context context, final int price, final int maxCount) {
+    public SelectNumberOfPeopleDialog(Context context, Reservation reservation) {
         super(context);
         currentCount = 1;
 
-        this.price = price;
-        this.maxCount = maxCount;
+        this.reservation = reservation;
+        this.price = reservation.getDiscountedPrice();
+        this.maxCount = reservation.getRemained();
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_select_number_of_people);
@@ -76,7 +80,7 @@ public class SelectNumberOfPeopleDialog extends Dialog implements View.OnClickLi
     public void onClick(View v) {
 
 
-        WarningReservationDialog dialog = new WarningReservationDialog(getContext());
+        WarningReservationDialog dialog = new WarningReservationDialog(getContext(), reservation);
         WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
         params.copyFrom(dialog.getWindow().getAttributes());
         params.width = ActionBar.LayoutParams.MATCH_PARENT;
