@@ -10,7 +10,7 @@ import android.widget.TextView;
  * Created by minhyeon on 2017-02-04.
  */
 
-public class RestaurantDetail extends AppCompatActivity {
+public class RestaurantDetailActivity extends AppCompatActivity {
 
     private TextView foodName;
     private TextView foodNum;

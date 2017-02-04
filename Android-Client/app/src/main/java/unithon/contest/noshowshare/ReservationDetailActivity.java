@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
  * Created by minhyeon on 2017-02-04.
  */
 
-public class ReservationDetail extends AppCompatActivity {
+public class ReservationDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

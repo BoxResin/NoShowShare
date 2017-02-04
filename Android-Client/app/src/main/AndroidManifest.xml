@@ -14,10 +14,10 @@
 
 		</activity>
 
-		<activity android:name=".ReservationDetail" android:label="">
+		<activity android:name=".ReservationDetailActivity" android:label="">
 
 		</activity>
-		<activity android:name=".RestaurantDetail">
+		<activity android:name=".RestaurantDetailActivity">
 		<intent-filter>
 			<action android:name = "android.intent.action.MAIN"/>
 			<category android:name = "android.intent.category.LAUNCHER"/>
