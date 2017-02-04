@@ -1,18 +1,164 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-	android:id = "@+id/activity_main"
+<layout
 	xmlns:android = "http://schemas.android.com/apk/res/android"
-	xmlns:tools = "http://schemas.android.com/tools"
-	android:layout_width = "match_parent"
-	android:layout_height = "match_parent"
-	android:paddingBottom = "@dimen/activity_vertical_margin"
-	android:paddingLeft = "@dimen/activity_horizontal_margin"
-	android:paddingRight = "@dimen/activity_horizontal_margin"
-	android:paddingTop = "@dimen/activity_vertical_margin"
-	tools:context = "unithon.contest.noshowshare.MainActivity">
+	xmlns:tools = "http://schemas.android.com/tools">
 
-	<TextView
-		android:layout_width = "wrap_content"
-		android:layout_height = "wrap_content"
-		android:text = "Hello World!"/>
-</RelativeLayout>
+	<LinearLayout
+		android:id = "@+id/activity_main"
+		android:layout_width = "match_parent"
+		android:layout_height = "match_parent"
+		android:orientation = "vertical"
+		tools:context = "unithon.contest.noshowshare.MainActivity">
+
+		<!-- 툴바 레이아웃 -->
+		<android.support.design.widget.AppBarLayout
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			android:orientation = "vertical">
+
+			<!-- 타이틀 바 -->
+			<RelativeLayout
+				android:layout_width = "match_parent"
+				android:layout_height = "62dp"
+				android:background = "#FFF"
+				tools:background = "#FF0">
+
+				<TextView
+					android:layout_width = "wrap_content"
+					android:layout_height = "wrap_content"
+					android:layout_centerHorizontal = "true"
+					android:layout_centerVertical = "true"
+					android:text = "타이틀 영역"
+					android:textSize = "25sp"/>
+
+				<!-- 사용자 정보 버튼 -->
+				<Button
+					android:id = "@+id/btn_user_info"
+					android:layout_width = "30dp"
+					android:layout_height = "30dp"
+					android:layout_centerVertical = "true"
+					android:layout_marginLeft = "15dp"
+					android:background = "@drawable/mypage"
+					android:onClick = "onClick"/>
+
+				<!-- 지도화면 버튼 -->
+				<Button
+					android:id = "@+id/btn_map_mode"
+					android:layout_width = "35dp"
+					android:layout_height = "35dp"
+					android:layout_alignParentRight = "true"
+					android:layout_centerVertical = "true"
+					android:layout_marginRight = "15dp"
+					android:background = "@drawable/map"
+					android:onClick = "onClick"/>
+			</RelativeLayout>
+
+			<View
+				android:layout_width = "match_parent"
+				android:layout_height = "1dp"
+				android:background = "#eaeaea"/>
+
+			<!-- 지역 선택 스피너 -->
+			<LinearLayout
+				android:layout_width = "match_parent"
+				android:layout_height = "41dp">
+
+				<Spinner
+					android:id = "@+id/spin_first_area"
+					android:layout_width = "0dp"
+					android:layout_height = "match_parent"
+					android:layout_weight = "1"
+					android:background = "#FFF"
+					android:entries = "@array/first_city"
+					tools:background = "#b4b4b4"/>
+
+				<Spinner
+					android:id = "@+id/spin_second_area"
+					android:layout_width = "0dp"
+					android:layout_height = "match_parent"
+					android:layout_weight = "1"
+					android:background = "#FFF"
+					android:entries = "@array/second_city"
+					tools:background = "#969696"/>
+
+				<Spinner
+					android:id = "@+id/spin_third_area"
+					android:layout_width = "0dp"
+					android:layout_height = "match_parent"
+					android:layout_weight = "1"
+					android:background = "#FFF"
+					android:entries = "@array/third_city"
+					tools:background = "#b4b4b4"/>
+			</LinearLayout>
+		</android.support.design.widget.AppBarLayout>
+
+
+		<!-- 최고 할인율 & 최신 등록 화면 -->
+		<ScrollView
+			android:id = "@+id/best_recent"
+			android:layout_width = "match_parent"
+			android:layout_height = "match_parent"
+			tools:visibility = "gone">
+
+			<!-- 콘첸트 영역 -->
+			<LinearLayout
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				android:orientation = "vertical">
+
+				<LinearLayout
+					android:layout_width = "match_parent"
+					android:layout_height = "54dp"
+					android:background = "#e7e7e7"
+					android:gravity = "center">
+
+					<TextView
+						android:layout_width = "wrap_content"
+						android:layout_height = "wrap_content"
+						android:text = "최고 할인율"
+						android:textSize = "20sp"/>
+				</LinearLayout>
+
+				<include
+					android:id = "@+id/best"
+					layout = "@layout/item_reservation_info"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:visibility = "gone"
+					tools:visibility = "visible"/>
+
+				<LinearLayout
+					android:layout_width = "match_parent"
+					android:layout_height = "54dp"
+					android:background = "#e7e7e7"
+					android:gravity = "center">
+
+					<TextView
+						android:layout_width = "wrap_content"
+						android:layout_height = "wrap_content"
+						android:text = "최신 등록"
+						android:textSize = "20sp"/>
+				</LinearLayout>
+
+				<include
+					android:id = "@+id/recent"
+					layout = "@layout/item_reservation_info"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:visibility = "gone"
+					tools:visibility = "visible"/>
+			</LinearLayout>
+		</ScrollView>
+
+		<!-- 지역별 예약정보 화면 -->
+		<ListView
+			android:id = "@+id/list_reservation"
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			android:clipToPadding = "false"
+			android:divider = "@android:color/transparent"
+			android:dividerHeight = "15dp"
+			android:paddingTop = "16dp"
+			android:visibility = "gone"
+			tools:visibility = "visible"/>
+	</LinearLayout>
+</layout>

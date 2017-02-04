@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   
+
+    <FrameLayout
+            android:layout_marginTop="30.7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/ic_launcher"
+                android:onClick="onClick"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="40sp"
+                android:gravity="center"
+                android:text="Title"/>
+
+        </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_marginBottom="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:background="@drawable/library_naver_logo"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="bottom"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@color/colorAccent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:paddingTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="name"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#b2b2b2"
+                    android:textSize = "10sp"
+                    android:text="address"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:textSize="10sp"
+                    android:text="number"
+                    android:textColor="#b2b2b2"
+                    />
+                <TextView
+                    android:id="@+id/btn_reserve"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF"
+                    android:padding="10sp"
+                    android:background="@color/colorPrimaryDark"
+                    android:text="예약하기"
+                    android:onClick="onClick"
+                    />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+
+
+    </ScrollView>
+</LinearLayout>
