@@ -1,5 +1,4 @@
 var express = require('express');
-var distance = require('geo-distance-js');
 var connection = require('../libs/dbConnect.js').dbConnect();
 var router = express.Router();
 
@@ -22,15 +21,14 @@ router.get('/recent', function (req, res, next) {
     var latestSQL = 'SELECT s.store_name, s.phone, s.lat, s.lng, s.etc, s.img, f.enroll_id, f.food_name, f.food_num, f.price, ' +
         'f.discount_price, f.update_time FROM store s LEFT JOIN food f ON s.phone=f.phone ' +
         'WHERE f.enroll_id NOT IN(SELECT enroll_id FROM reserve_list) ORDER BY f.update_time desc LIMIT 1';
-    noShowList(res, latestSQL, [])
+    noShowList(res, latestSQL, []);
 });
 
 router.get('/reservation/:m', function (req, res, next) {
     var meter = req.params.m;
     var lat = req.query.lat;
     var lng = req.query.lng;
-    var distanceSQL = 'SELECT s.phone, s.lat, s.lng FROM store s LEFT JOIN food f ON s.phone=f.phone ' +
-        'WHERE f.enroll_id NOT IN(SELECT enroll_id FROM reserve_list)';
+    var distanceSQL = 'SELECT phone, lat, lng FROM store';
     connection.query(distanceSQL, function (error, location) {
         if(error) {
             res.status(500).json({
@@ -40,16 +38,33 @@ router.get('/reservation/:m', function (req, res, next) {
         } else {
             var list = [];
             for(var i=0; i<location.length; i++) {
-                var dist = distance.getDistance({lat: lat, lng: lng}, {lat: location[i].lat, lng: location[i].lng});
-                console.log(dist);
-                if(dist <= 1000) {
-                    location[i].dist = dist;
-                    list.push(location[i])
+                var dist = getDistance(lat, lng, location[i].lat, location[i].lng);
+                if(dist <= meter) {
+                    list.push(location[i].phone);
                 }
             }
+            var nearbySQL = 'SELECT s.store_name, s.phone, s.lat, s.lng, s.etc, s.img, f.enroll_id, f.food_name, f.food_num, f.price, ' +
+                'f.discount_price, f.update_time FROM store s LEFT JOIN food f ON s.phone=f.phone ' +
+                'WHERE f.enroll_id NOT IN(SELECT enroll_id FROM reserve_list) AND f.phone IN(?)';
+            noShowList(res, nearbySQL, list);
         }
     })
 });
+
+var rad = function(x) {
+    return x * Math.PI / 180;
+};
+var getDistance = function(lat1, lng1, lat2, lng2) {
+    var R = 6378137; // Earth’s mean radius in meter
+    var dLat = rad(lat2 - lat1);
+    var dLong = rad(lng2 - lng1);
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(rad(lat1)) * Math.cos(rad(lat2)) *
+        Math.sin(dLong / 2) * Math.sin(dLong / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return d; // returns the distance in meter
+};
 
 var noShowList = function(res, SQL, params) {
     connection.query(SQL, params, function (error, list) {

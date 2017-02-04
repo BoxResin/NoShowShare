@@ -37,13 +37,20 @@ router.post('/register', upload.array('food_img', 10), function (req, res, next)
 });
 
 var infoUpload = function (res, params, img_url) {
-    var infoUploadSQL = 'INSERT INTO food(phone, food_name, food_num, price, discount_price, update_time) VALUES(?, ?, ?, ?, ?, ?)';
-    connection.query(infoUploadSQL, params, function (error, info) {
-        if(error) {
-            console.log('1 : '+error);
-            res.status(500).json({ result: false });
-        } else{
-            imgUpload(res, info.insertId, img_url);
+    connection.beginTransaction(function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            var infoUploadSQL = 'INSERT INTO food(phone, food_name, food_num, price, discount_price, update_time) VALUES(?, ?, ?, ?, ?, ?)';
+            connection.query(infoUploadSQL, params, function (error, info) {
+                if(error) {
+                    connection.rollback(function () {
+                        res.status(500).render('register', { result: false });
+                    });
+                } else{
+                    imgUpload(res, info.insertId, img_url);
+                }
+            });
         }
     });
 };
@@ -56,15 +63,21 @@ var imgUpload = function (res, enroll_id, img_url) {
         if(i != img_url.length-1) imgUploadSQL += ',';
         params.push(enroll_id, img_url[i]);
     }
-    console.log(imgUploadSQL);
-    console.log(params);
     connection.query(imgUploadSQL, params, function (error, info) {
         if(error) {
-            console.log('2 : '+error);
-            res.status(500).json({ result: false });
-        } else {
-            res.status(200).json({ result: true });
+            connection.rollback(function () {
+                res.status(500).render('register', { result: false });
+            });
         }
+        connection.commit(function (err) {
+            if(err) {
+                connection.rollback(function () {
+                    res.status(500).render('register', { result: false });
+                });
+            } else {
+                res.status(200).render('register', { result: true });
+            }
+        });
     })
 };
 
