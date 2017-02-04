@@ -71,25 +71,11 @@ public class MainActivity extends AppCompatActivity
 						{
 							// json에서 음식점 예약 정보를 가져온다.
 							JSONObject jsonRestaurant = jsonRoot.getJSONArray("list").getJSONObject(0);
-							String storeName = jsonRestaurant.getString("store_name");
-							String phone = jsonRestaurant.getString("phone");
-							double lat = Double.parseDouble(jsonRestaurant.getString("lat"));
-							double lng = Double.parseDouble(jsonRestaurant.getString("lng"));
-							String foodName = jsonRestaurant.getString("food_name");
-							int price = jsonRestaurant.getInt("price");
-							int discountedPrice = jsonRestaurant.getInt("discount_price");
-							int foodNum = jsonRestaurant.getInt("food_num");
-
-							String storeLocation = String.format("%s %s %s",
-									jsonRestaurant.getString("city"), jsonRestaurant.getString("goo"),
-									jsonRestaurant.getString("dong"));
 
 							// 화면 갱신
-							Reservation reservation = new Reservation(new Restaurant(storeName, phone, storeLocation, lat, lng, null),
-									new Food(foodName, price), foodNum, discountedPrice);
 							LinearLayout root = (LinearLayout) findViewById(R.id.best);
 							root.setVisibility(View.VISIBLE);
-							mapReservation(root, reservation);
+							mapReservation(root, reservationFromJson(jsonRestaurant));
 						}
 
 					}
@@ -116,25 +102,11 @@ public class MainActivity extends AppCompatActivity
 								{
 									// json에서 음식점 예약 정보를 가져온다.
 									JSONObject jsonRestaurant = jsonRoot.getJSONArray("list").getJSONObject(0);
-									String storeName = jsonRestaurant.getString("store_name");
-									String phone = jsonRestaurant.getString("phone");
-									double lat = Double.parseDouble(jsonRestaurant.getString("lat"));
-									double lng = Double.parseDouble(jsonRestaurant.getString("lng"));
-									String foodName = jsonRestaurant.getString("food_name");
-									int price = jsonRestaurant.getInt("price");
-									int discountedPrice = jsonRestaurant.getInt("discount_price");
-									int foodNum = jsonRestaurant.getInt("food_num");
-
-									String storeLocation = String.format("%s %s %s",
-											jsonRestaurant.getString("city"), jsonRestaurant.getString("goo"),
-											jsonRestaurant.getString("dong"));
 
 									// 화면 갱신
-									Reservation reservation = new Reservation(new Restaurant(storeName, phone, storeLocation, lat, lng, null),
-											new Food(foodName, price), foodNum, discountedPrice);
 									LinearLayout root = (LinearLayout) findViewById(R.id.recent);
 									root.setVisibility(View.VISIBLE);
-									mapReservation(root, reservation);
+									mapReservation(root, reservationFromJson(jsonRestaurant));
 								}
 
 							}
@@ -159,6 +131,9 @@ public class MainActivity extends AppCompatActivity
 		}
 	}
 
+	/**
+	 * Reservation 객체를 뷰에 연결하는 메서드
+	 */
 	private void mapReservation(View root, Reservation reservation)
 	{
 		ItemReservationInfoBinding itemBinding = DataBindingUtil.bind(root);
@@ -172,5 +147,27 @@ public class MainActivity extends AppCompatActivity
 		discountRate *= 100;
 		itemBinding.txtDiscountRate.setText((int) discountRate + "%");
 		itemBinding.txtRemained.setText(reservation.getRemained() + "");
+	}
+
+	/**
+	 * JSON 오브젝트를 Reservation 객체로 파싱하는 메서드
+	 */
+	private Reservation reservationFromJson(JSONObject json) throws JSONException
+	{
+		String storeName = json.getString("store_name");
+		String phone = json.getString("phone");
+		double lat = Double.parseDouble(json.getString("lat"));
+		double lng = Double.parseDouble(json.getString("lng"));
+		String foodName = json.getString("food_name");
+		int price = json.getInt("price");
+		int discountedPrice = json.getInt("discount_price");
+		int foodNum = json.getInt("food_num");
+
+		String storeLocation = String.format("%s %s %s",
+				json.getString("city"), json.getString("goo"),
+				json.getString("dong"));
+
+		return new Reservation(new Restaurant(storeName, phone, storeLocation, lat, lng, null),
+				new Food(foodName, price), foodNum, discountedPrice);
 	}
 }
