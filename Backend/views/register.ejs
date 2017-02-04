@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Admin</title>
 
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -109,7 +109,7 @@
                                           <input class="form-control" id="price" name="price" placeholder="pricce">
                                           <input class="form-control" id="discount_price" name="discount_price" placeholder="discount place">
                                           <label>Food Img</label>
-                                          <input type="file">
+                                          <input type="file" id="food_img" name="food_img">
                                           </div>
                                     </div>
                               </div>
@@ -188,15 +188,6 @@
     document.getElementById("lng").value = store_data[id].lng;
     document.getElementById("img").value = store_data[id].img;
     document.getElementById("etc").value = store_data[id].etc;
-
-    /*
-    for(var i=0; i<len; i++){
-      if(i == id){
-        //document.getElementById('store_name').innerHTML = store_data[i].store_name;
-        alert('name : ' + store_data[i].store_name);
-        $("#store_name").text(store_data[i].store_name);
-      }
-    }*/
 
   }
 </script>

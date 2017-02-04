@@ -64,7 +64,9 @@ router.post('/register', function (req, res, next){
       twoDigits(date.getMinutes(), 2)+':'+
       twoDigits(date.getSeconds(), 2);
 
+  console.log('food : ' + food_img);
 
+/*
   var query = 'INSERT INTO food(phone, food_name, food_num, price, discount_price, update_time) values(?, ?, ?, ?, ?, ?)';
   var params = [phone, food_name, food_num, price, discount_price, update_time];
   connection.query(query, params, function (error, result) {
@@ -83,6 +85,7 @@ router.post('/register', function (req, res, next){
         });
       }
   });
+  */
 });
 
 var twoDigits = function(str, digits) {
