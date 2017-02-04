@@ -5,6 +5,6 @@ var mysql = require('mysql');
 
 exports.dbConnect = function() {
     return connection = mysql.createConnection({
-        
+
     });
 };

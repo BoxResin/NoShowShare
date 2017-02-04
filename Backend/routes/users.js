@@ -3,15 +3,23 @@ var connection = require('../libs/dbConnect.js').dbConnect();
 var router = express.Router();
 
 router.get('/:city/:goo/:dong', function(req, res, next) {
-    var params = [req.params.city, req.params.goo, req.params.dong];
-    noShowList(res, params);
-});
-
-var noShowList = function(res, params) {
     var foodListSQL = 'SELECT s.store_name, s.phone, s.lat, s.lng, s.etc, s.img, f.enroll_id, f.food_name, f.food_num, f.price, ' +
         'f.discount_price, f.update_time FROM store s LEFT JOIN food f ON s.phone=f.phone ' +
         'WHERE s.city=? AND s.goo=? AND s.dong=? AND f.enroll_id NOT IN(SELECT enroll_id FROM reserve_list)';
-    connection.query(foodListSQL, params, function (error, list) {
+    var params = [req.params.city, req.params.goo, req.params.dong];
+    noShowList(res, foodListSQL, params);
+});
+
+router.get('/best', function (req, res, next) {
+    var bestSQL = 'SELECT s.store_name, s.phone, s.lat, s.lng, s.etc, s.img, f.enroll_id, f.food_name, f.food_num, f.price, ' +
+        'f.discount_price, f.update_time FROM store s LEFT JOIN food f ON s.phone=f.phone ' +
+        'WHERE f.enroll_id NOT IN(SELECT enroll_id FROM reserve_list) ORDER BY price/discount_price desc LIMIT 1';
+    var params = [];
+    noShowList(res, bestSQL, params);
+});
+
+var noShowList = function(res, SQL, params) {
+    connection.query(SQL, params, function (error, list) {
         if(error) {
             console.log(error);
             res.status(500).json({
