@@ -1,11 +1,12 @@
 var express = require('express');
 var AWS = require('aws-sdk');
 var connection = require('../libs/dbConnect.js').dbConnect();
+var awsKey = require('../libs/awsKey.js');
 var multer = require('multer');
 var multerS3 = require('multer-s3');
 AWS.config.update({
-    accessKeyId: "AKIAJ2HECAE6J7NYT62A",
-    secretAccessKey: "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",
+    accessKeyId: awsKey.accessKeyId(),
+    secretAccessKey: awsKey.secretAccessKey(),
     region: "ap-northeast-2",
     signatureVersion: 'v4'
 });
@@ -32,6 +33,7 @@ router.post('/register', upload.array('food_img', 10), function (req, res, next)
     for(var i=0; i<req.files.length; i++) {
         img_url.push(req.files[i].location);
     }
+    //phone 데이터는 어디서 가져올지
     var params = ["01098031992", req.body.food_name, req.body.food_num, req.body.price, req.body.discount_price, getCurrentTime()];
     infoUpload(res, params, img_url);
 });
