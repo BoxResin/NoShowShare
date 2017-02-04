@@ -167,5 +167,4 @@
 				android:src = "@drawable/triangle"/>
 		</FrameLayout>
 	</android.support.v7.widget.CardView>
-
 </layout>
