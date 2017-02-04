@@ -27,7 +27,8 @@
 				android:id = "@+id/btn_user_info"
 				android:layout_width = "40dp"
 				android:layout_height = "40dp"
-				android:layout_centerVertical = "true"/>
+				android:layout_centerVertical = "true"
+				android:onClick = "onClick"/>
 
 			<!-- 지도화면 버튼 -->
 			<Button
@@ -44,58 +45,85 @@
 			android:layout_height = "41dp">
 
 			<Spinner
+				android:id = "@+id/spin_first_area"
 				android:layout_width = "0dp"
 				android:layout_height = "match_parent"
 				android:layout_weight = "1"
+				android:entries = "@array/first_city"
 				tools:background = "#b4b4b4"/>
 
 			<Spinner
+				android:id = "@+id/spin_second_area"
 				android:layout_width = "0dp"
 				android:layout_height = "match_parent"
 				android:layout_weight = "1"
+				android:entries = "@array/second_city"
 				tools:background = "#969696"/>
 
 			<Spinner
+				android:id = "@+id/spin_third_area"
 				android:layout_width = "0dp"
 				android:layout_height = "match_parent"
 				android:layout_weight = "1"
+				android:entries = "@array/third_city"
 				tools:background = "#b4b4b4"/>
 		</LinearLayout>
 
-		<LinearLayout
+		<!-- 스크롤 뷰 -->
+		<ScrollView
 			android:layout_width = "match_parent"
-			android:layout_height = "54dp"
-			android:background = "#e7e7e7"
-			android:gravity = "center">
+			android:layout_height = "match_parent">
 
-			<TextView
-				android:layout_width = "wrap_content"
+			<!-- 콘텐츠 영역-->
+			<LinearLayout
+				android:layout_width = "match_parent"
 				android:layout_height = "wrap_content"
-				android:text = "최고 할인율"
-				android:textSize = "20sp"/>
-		</LinearLayout>
+				android:orientation = "vertical">
 
-		<include
-			layout = "@layout/item_reservation_info"
-			android:layout_width = "match_parent"
-			android:layout_height = "wrap_content"/>
+				<LinearLayout
+					android:layout_width = "match_parent"
+					android:layout_height = "54dp"
+					android:background = "#e7e7e7"
+					android:gravity = "center">
 
-		<LinearLayout
-			android:layout_width = "match_parent"
-			android:layout_height = "54dp"
-			android:background = "#e7e7e7"
-			android:gravity = "center">
+					<TextView
+						android:layout_width = "wrap_content"
+						android:layout_height = "wrap_content"
+						android:text = "최고 할인율"
+						android:textSize = "20sp"/>
+				</LinearLayout>
 
-			<TextView
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:text = "최신 등록"
-				android:textSize = "20sp"/>
-		</LinearLayout>
+				<include
+					android:id = "@+id/best"
+					layout = "@layout/item_reservation_info"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:visibility = "gone"
+					tools:visibility = "visible"/>
 
-		<include
-			layout = "@layout/item_reservation_info"
-			android:layout_width = "match_parent"
-			android:layout_height = "wrap_content"/>
+				<LinearLayout
+					android:layout_width = "match_parent"
+					android:layout_height = "54dp"
+					android:background = "#e7e7e7"
+					android:gravity = "center">
+
+					<TextView
+						android:layout_width = "wrap_content"
+						android:layout_height = "wrap_content"
+						android:text = "최신 등록"
+						android:textSize = "20sp"/>
+				</LinearLayout>
+
+				<include
+					android:id = "@+id/recent"
+					layout = "@layout/item_reservation_info"
+					android:layout_width = "match_parent"
+					android:layout_height = "wrap_content"
+					android:visibility = "gone"
+					tools:visibility = "visible"/>
+			</LinearLayout>
+		</ScrollView>
+
 	</LinearLayout>
+
 </layout>
