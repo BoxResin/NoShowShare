@@ -1,9 +1,11 @@
 package data;
 
+import java.io.Serializable;
+
 /**
  * 식당 정보 클래스
  */
-public class Restaurant
+public class Restaurant implements Serializable
 {
 	private String name; // 식당 이름
 	private String phone; // 식당 전화번호

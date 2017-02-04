@@ -1,9 +1,11 @@
 package data;
 
+import java.io.Serializable;
+
 /**
  * 음식 정보 클래스
  */
-public class Food
+public class Food implements Serializable
 {
 	private String name; // 음식 이름
 	private int price; // 음식 가격
