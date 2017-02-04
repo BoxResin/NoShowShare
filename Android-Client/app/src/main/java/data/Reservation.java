@@ -1,5 +1,8 @@
 package data;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -13,6 +16,28 @@ public class Reservation
 	private Food food;
 	private int remained; // 남은 수량
 	private int discountedPrice; // 할인된 가격
+
+	/**
+	 * JSON 오브젝트를 Reservation 객체로 파싱하는 메서드
+	 */
+	public static Reservation fromJson(JSONObject json) throws JSONException
+	{
+		String storeName = json.getString("store_name");
+		String phone = json.getString("phone");
+		double lat = Double.parseDouble(json.getString("lat"));
+		double lng = Double.parseDouble(json.getString("lng"));
+		String foodName = json.getString("food_name");
+		int price = json.getInt("price");
+		int discountedPrice = json.getInt("discount_price");
+		int foodNum = json.getInt("food_num");
+
+		String storeLocation = String.format("%s %s %s",
+				json.getString("city"), json.getString("goo"),
+				json.getString("dong"));
+
+		return new Reservation(new Restaurant(storeName, phone, storeLocation, lat, lng, null),
+				new Food(foodName, price), foodNum, discountedPrice);
+	}
 
 	public int getRemained()
 	{

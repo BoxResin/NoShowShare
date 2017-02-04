@@ -40,6 +40,7 @@
 				android:onClick = "onClick"/>
 		</RelativeLayout>
 
+		<!-- 지역 선택 스피너 -->
 		<LinearLayout
 			android:layout_width = "match_parent"
 			android:layout_height = "41dp">
@@ -69,16 +70,18 @@
 				tools:background = "#b4b4b4"/>
 		</LinearLayout>
 
-		<!-- 스크롤 뷰 -->
+		<!-- 최고 할인율 & 최신 등록 화면 -->
 		<ScrollView
+			android:id = "@+id/best_recent"
 			android:layout_width = "match_parent"
 			android:layout_height = "match_parent">
 
-			<!-- 콘텐츠 영역-->
+			<!-- 콘첸트 영역 -->
 			<LinearLayout
 				android:layout_width = "match_parent"
 				android:layout_height = "wrap_content"
-				android:orientation = "vertical">
+				android:orientation = "vertical"
+				tools:visibility = "gone">
 
 				<LinearLayout
 					android:layout_width = "match_parent"
@@ -123,5 +126,13 @@
 					tools:visibility = "visible"/>
 			</LinearLayout>
 		</ScrollView>
+
+		<!-- 지역별 예약정보 화면 -->
+		<ListView
+			android:id = "@+id/list_reservation"
+			android:layout_width = "match_parent"
+			android:layout_height = "wrap_content"
+			android:visibility = "gone"
+			tools:visibility = "visible"/>
 	</LinearLayout>
 </layout>

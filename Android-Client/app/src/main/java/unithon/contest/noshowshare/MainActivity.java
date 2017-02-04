@@ -3,18 +3,19 @@ package unithon.contest.noshowshare;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import data.Food;
 import data.Reservation;
-import data.Restaurant;
 import unithon.contest.noshowshare.databinding.ActivityMainBinding;
 import unithon.contest.noshowshare.databinding.ItemReservationInfoBinding;
 import util.HttpRequester;
@@ -22,12 +23,32 @@ import util.HttpRequester;
 public class MainActivity extends AppCompatActivity
 {
 	private ActivityMainBinding binding;
+	private ArrayAdapter<Reservation> reservationAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+		// 예약 리스트뷰 초기화
+		reservationAdapter = new ArrayAdapter<Reservation>(this, R.layout.item_reservation_info)
+		{
+			@NonNull
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent)
+			{
+				if (convertView == null)
+					convertView = getLayoutInflater().inflate(R.layout.item_reservation_info, parent, false);
+
+				Reservation reservation = getItem(position);
+				mapReservation(convertView, reservation);
+
+				return convertView;
+			}
+		};
+		binding.listReservation.setAdapter(reservationAdapter);
+
 
 		// 지역 선택 스피너 초기화
 		AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener()
@@ -39,9 +60,44 @@ public class MainActivity extends AppCompatActivity
 				String secondArea_str = binding.spinSecondArea.getSelectedItem().toString();
 				String thirdArea_str = binding.spinThirdArea.getSelectedItem().toString();
 
+				// 사용자가 지역(시/군/구)을 모두 선택했을 때
 				if (!firstArea_str.equals("시/도") && !secondArea_str.equals("시/군/도") && !thirdArea_str.equals("동/읍/면"))
 				{
-					Toast.makeText(MainActivity.this, parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+					binding.bestRecent.setVisibility(View.GONE);
+					binding.listReservation.setVisibility(View.VISIBLE);
+
+					// 해당 지역의 모든 예약 정보를 가져온다.
+					reservationAdapter.clear();
+					new HttpRequester(String.format("http://52.78.44.216:3000/users/%s/%s/%s",
+							firstArea_str, secondArea_str, thirdArea_str))
+							.request(HttpRequester.Method.GET, null, new HttpRequester.HttpRequestListener()
+							{
+								@Override
+								public void onHttpResult(String data, HttpRequester.Error error)
+								{
+									if (error != HttpRequester.Error.OK)
+										return;
+
+									try
+									{
+										JSONObject jsonRoot = new JSONObject(data);
+										if (jsonRoot.getString("result").equals("true"))
+										{
+											// json에서 음식점 예약 정보를 가져온다.
+											JSONArray jsonRestaurants = jsonRoot.getJSONArray("list");
+
+											for (int i = 0; i < jsonRestaurants.length(); i++)
+											{
+												JSONObject jsonRestaurant = jsonRestaurants.getJSONObject(i);
+												reservationAdapter.add(Reservation.fromJson(jsonRestaurant));
+											}
+										}
+									}
+									catch (JSONException e)
+									{
+									}
+								}
+							});
 				}
 			}
 
@@ -75,7 +131,7 @@ public class MainActivity extends AppCompatActivity
 							// 화면 갱신
 							LinearLayout root = (LinearLayout) findViewById(R.id.best);
 							root.setVisibility(View.VISIBLE);
-							mapReservation(root, reservationFromJson(jsonRestaurant));
+							mapReservation(root, Reservation.fromJson(jsonRestaurant));
 						}
 
 					}
@@ -106,7 +162,7 @@ public class MainActivity extends AppCompatActivity
 									// 화면 갱신
 									LinearLayout root = (LinearLayout) findViewById(R.id.recent);
 									root.setVisibility(View.VISIBLE);
-									mapReservation(root, reservationFromJson(jsonRestaurant));
+									mapReservation(root, Reservation.fromJson(jsonRestaurant));
 								}
 
 							}
@@ -147,27 +203,5 @@ public class MainActivity extends AppCompatActivity
 		discountRate *= 100;
 		itemBinding.txtDiscountRate.setText((int) discountRate + "%");
 		itemBinding.txtRemained.setText(reservation.getRemained() + "");
-	}
-
-	/**
-	 * JSON 오브젝트를 Reservation 객체로 파싱하는 메서드
-	 */
-	private Reservation reservationFromJson(JSONObject json) throws JSONException
-	{
-		String storeName = json.getString("store_name");
-		String phone = json.getString("phone");
-		double lat = Double.parseDouble(json.getString("lat"));
-		double lng = Double.parseDouble(json.getString("lng"));
-		String foodName = json.getString("food_name");
-		int price = json.getInt("price");
-		int discountedPrice = json.getInt("discount_price");
-		int foodNum = json.getInt("food_num");
-
-		String storeLocation = String.format("%s %s %s",
-				json.getString("city"), json.getString("goo"),
-				json.getString("dong"));
-
-		return new Reservation(new Restaurant(storeName, phone, storeLocation, lat, lng, null),
-				new Food(foodName, price), foodNum, discountedPrice);
 	}
 }
