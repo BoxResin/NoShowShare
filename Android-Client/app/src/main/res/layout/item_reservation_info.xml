@@ -1,0 +1,60 @@
+<!-- 예약 정보 리스트뷰 항목 레이아웃 -->
+<layout xmlns:android = "http://schemas.android.com/apk/res/android">
+	<LinearLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "wrap_content">
+
+		<!-- 음식 이미지 -->
+		<ImageView
+			android:id = "@+id/img_food"
+			android:layout_width = "70dp"
+			android:layout_height = "match_parent"
+			android:src = "@mipmap/ic_launcher"/>
+
+		<RelativeLayout
+			android:layout_width = "match_parent"
+			android:layout_height = "match_parent"
+			android:gravity = "center_vertical"
+			android:padding = "10dp">
+
+			<!-- 음식점 이름 -->
+			<TextView
+				android:id = "@+id/txt_restaurant_name"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:text = "음식점 이름"
+				android:textSize = "20sp"
+				android:textStyle = "bold"/>
+
+			<!-- 음식 이름 -->
+			<TextView
+				android:id = "@+id/txt_food_name"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:layout_below = "@id/txt_restaurant_name"
+				android:layout_marginTop = "10dp"
+				android:text = "음식 이름"/>
+
+			<!-- 음식 단가 -->
+			<TextView
+				android:id = "@+id/txt_price"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:layout_alignBottom = "@id/txt_food_name"
+				android:layout_marginLeft = "10dp"
+				android:layout_toRightOf = "@id/txt_food_name"
+				android:text = "단가￦"
+				android:textColor = "#FF0000"/>
+
+			<!-- 음식 남은 수량 -->
+			<TextView
+				android:id = "@+id/txt_remained"
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:layout_alignBottom = "@id/txt_food_name"
+				android:layout_marginLeft = "10dp"
+				android:layout_toRightOf = "@id/txt_price"
+				android:text = "남은 수량"/>
+		</RelativeLayout>
+	</LinearLayout>
+</layout>
