@@ -38,22 +38,6 @@ public class MainActivity extends AppCompatActivity
 		super.onCreate(savedInstanceState);
 		binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-		View.OnClickListener listener = new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View v)
-			{
-				Intent intent = new Intent(MainActivity.this, RestaurantDetailActivity.class);
-				if (v == binding.best.reservationCard)
-					intent.putExtra("reservation", bestReservation);
-				else if (v == binding.recent.reservationCard)
-					intent.putExtra("reservation", recentReservation);
-				startActivity(intent);
-			}
-		};
-		binding.best.reservationCard.setOnClickListener(listener);
-		binding.recent.reservationCard.setOnClickListener(listener);
-
 		// 예약 리스트뷰 초기화
 		reservationAdapter = new ArrayAdapter<Reservation>(this, R.layout.item_reservation_info)
 		{
@@ -214,13 +198,25 @@ public class MainActivity extends AppCompatActivity
 	/**
 	 * Reservation 객체를 뷰에 연결하는 메서드
 	 */
-	private void mapReservation(View root, Reservation reservation)
+	private void mapReservation(View root, final Reservation reservation)
 	{
 		ItemReservationInfoBinding itemBinding = DataBindingUtil.bind(root);
 		itemBinding.txtRestaurantName.setText(reservation.getRestaurant().getName());
 		itemBinding.txtRestaurantLocation.setText(reservation.getRestaurant().getLocationName());
 		itemBinding.txtFoodName.setText(reservation.getFood().getName());
 		itemBinding.txtRemained.setText(reservation.getRemained() + "");
+
+		// 클릭 리스너 등록
+		itemBinding.reservationCard.setOnClickListener(new View.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				Intent intent = new Intent(MainActivity.this, RestaurantDetailActivity.class);
+				intent.putExtra("reservation", reservation);
+				startActivity(intent);
+			}
+		});
 
 		// 원가에 취소선 긋기
 		SpannableString txtPriceSpan = new SpannableString(reservation.getFood().getPrice() + "원");
