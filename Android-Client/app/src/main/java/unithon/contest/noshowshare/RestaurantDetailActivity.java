@@ -1,39 +1,31 @@
 package unithon.contest.noshowshare;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+
+import unithon.contest.noshowshare.databinding.ActivityRestaurantDetailBinding;
 
 /**
- * Created by minhyeon on 2017-02-04.
+ * 예약 상세정보 액티비티
  */
+public class RestaurantDetailActivity extends AppCompatActivity
+{
+	private ActivityRestaurantDetailBinding binding;
 
-public class RestaurantDetailActivity extends AppCompatActivity {
+	@Override
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		binding = DataBindingUtil.setContentView(this, R.layout.activity_restaurant_detail);
+	}
 
-    private TextView foodName;
-    private TextView foodNum;
-    private ImageView restaurantImage;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_detail);
-        foodName = (TextView) findViewById(R.id.food_name);
-        foodNum = (TextView) findViewById(R.id.food_num);
-        restaurantImage = (ImageView) findViewById(R.id.restaurant_image);
-
-        foodName.setText("");
-        foodNum.setText("");
-
-
-    }
-
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_back:
-                finish();
-        }
-    }
+	public void onClick(View view)
+	{
+		if (view == binding.btnBack)
+		{
+			finish();
+		}
+	}
 }
