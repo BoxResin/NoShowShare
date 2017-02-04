@@ -1,142 +1,182 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<!-- 내 정보 액티비티 레이아웃 -->
+<LinearLayout
+	xmlns:android = "http://schemas.android.com/apk/res/android"
+	android:layout_width = "match_parent"
+	android:layout_height = "match_parent"
+	android:orientation = "vertical">
+
+	<android.support.design.widget.AppBarLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "62dp"
+		android:background = "#FFF">
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<!-- 뒤로가기 버튼 -->
+			<Button
+				android:id = "@+id/btn_back"
+				android:layout_width = "30dp"
+				android:layout_height = "30dp"
+				android:layout_centerVertical = "true"
+				android:layout_marginLeft = "15dp"
+				android:background = "@drawable/left_arrow"
+				android:onClick = "onClick"/>
+
+			<ImageView
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:background = "@drawable/title"
+				android:layout_centerInParent="true"/>
+		</RelativeLayout>
+
+	</android.support.design.widget.AppBarLayout>
+
+	<LinearLayout
+		android:layout_width = "match_parent"
+		android:layout_height = "match_parent"
+		android:background = "#e7e7e7"
+		android:gravity = "center"
+		android:orientation = "vertical">
+
+		<ImageView
+			android:layout_width = "300dp"
+			android:layout_height = "wrap_content"
+			android:adjustViewBounds = "true"
+			android:src = "@drawable/store"/>
+
+		<TextView
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_marginBottom = "30dp"
+			android:gravity = "center"
+			android:text = "아직 예약한 가게가 없어요\n맛있는 식사를 찾아 떠나보세요"
+			android:textSize = "15sp"/>
+	</LinearLayout>
+
+	<ScrollView
+		android:id = "@+id/my_reservation_info"
+		android:layout_width = "match_parent"
+		android:layout_height = "match_parent"
+		android:visibility = "gone">
+
+		<LinearLayout
+			android:layout_width = "match_parent"
+			android:layout_height = "match_parent"
+			android:orientation = "vertical">
+
+			<LinearLayout
+				android:layout_width = "match_parent"
+				android:layout_height = "300dp"
+				android:background = "#dcdcdc">
+
+				<FrameLayout
+					android:layout_width = "match_parent"
+					android:layout_height = "match_parent"
+					android:background = "@drawable/store_image">
+
+					<FrameLayout
+						android:layout_width = "match_parent"
+						android:layout_height = "100dp"
+						android:layout_gravity = "bottom"
+						android:layout_marginLeft = "3dp"
+						android:layout_marginRight = "3dp"
+						android:background = "@color/colorAccent"
+						android:paddingBottom = "5dp"
+						android:paddingTop = "5dp">
+
+						<LinearLayout
+							android:layout_width = "match_parent"
+							android:layout_height = "match_parent"
+							android:background = "#fff"
+							android:gravity = "center"
+							android:orientation = "vertical">
+
+							<TextView
+								android:layout_width = "wrap_content"
+								android:layout_height = "wrap_content"
+								android:text = "ELBON the table"
+								android:textColor = "@android:color/black"
+								android:textSize = "20sp"
+								android:textStyle = "bold"/>
+
+							<TextView
+								android:layout_width = "wrap_content"
+								android:layout_height = "wrap_content"
+								android:text = "Seoul Gangnam  Sinsa"
+								android:textColor = "#b2b2b2"
+								android:textSize = "12sp"
+								/>
 
 
-    <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="62dp">
+							<TextView
+								android:layout_width = "wrap_content"
+								android:layout_height = "wrap_content"
+								android:text = "02-1234-5678"
+								android:textColor = "#b2b2b2"
+								android:textSize = "10sp"
+								/>
 
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/title"
-                />
+						</LinearLayout>
 
-        </FrameLayout>
+					</FrameLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+				</FrameLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+			</LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:background="#dcdcdc">
+			<LinearLayout
+				android:layout_width = "match_parent"
+				android:layout_height = "match_parent">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/store_image">
+				<FrameLayout
+					android:layout_width = "match_parent"
+					android:layout_height = "match_parent"
+					android:background = "#DCDCDC">
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:layout_gravity="bottom"
-                        android:background="@color/colorAccent"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
-                        android:paddingBottom="5dp"
-                        android:paddingTop="5dp">
+					<LinearLayout
+						android:layout_width = "match_parent"
+						android:layout_height = "match_parent"
+						android:orientation = "vertical">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:background="#fff"
-                            android:gravity="center">
+						<LinearLayout
+							android:layout_width = "match_parent"
+							android:layout_height = "300dp"
+							android:layout_marginTop = "5dp"
+							android:background = "@android:color/white">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="ELBON the table"
-                                android:textStyle="bold"
-                                android:textSize="20sp"
-                                android:textColor="@android:color/black"/>
+							<TextView
+								android:layout_width = "match_parent"
+								android:layout_height = "20dp"
+								android:text = "map"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="#b2b2b2"
-                                android:textSize = "12sp"
-                                android:text="Seoul Gangnam  Sinsa"
-                                />
+						</LinearLayout>
 
+						<LinearLayout
+							android:layout_width = "match_parent"
+							android:layout_height = "wrap_content"
+							android:gravity = "center|right"
+							android:orientation = "horizontal">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textSize="10sp"
-                                android:text="02-1234-5678"
-                                android:textColor="#b2b2b2"
-                                />
+							<TextView
+								android:layout_width = "wrap_content"
+								android:layout_height = "wrap_content"
+								android:text = "push"/>
 
-                        </LinearLayout>
+							<SeekBar
+								android:layout_width = "70dp"
+								android:layout_height = "50dp"/>
 
-                    </FrameLayout>
+						</LinearLayout>
 
-                </FrameLayout>
+					</LinearLayout>
 
-            </LinearLayout>
+				</FrameLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+			</LinearLayout>
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#DCDCDC">
+		</LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="300dp"
-                            android:background="@android:color/white"
-                            android:layout_marginTop="5dp">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="20dp"
-                                android:text="map"/>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center|right">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="push"/>
-                            <SeekBar
-                                android:layout_width="70dp"
-                                android:layout_height="50dp" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
+	</ScrollView>
 </LinearLayout>
