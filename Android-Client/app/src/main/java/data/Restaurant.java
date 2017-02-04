@@ -7,6 +7,7 @@ public class Restaurant
 {
 	private String name; // 식당 이름
 	private String phone; // 식당 전화번호
+	private String locationName; // 식당 위치
 	private double lat; // 식당 위도
 	private double lng; // 식당 경도
 	private String imgUrl; // 대표 이미지 url
@@ -81,5 +82,15 @@ public class Restaurant
 	public void setImgUrl(String imgUrl)
 	{
 		this.imgUrl = imgUrl;
+	}
+
+	public String getLocationName()
+	{
+		return locationName;
+	}
+
+	public void setLocationName(String locationName)
+	{
+		this.locationName = locationName;
 	}
 }
