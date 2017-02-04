@@ -25,7 +25,6 @@
             android:onClick="onClick"
             />
 
-
     </FrameLayout>
 
     <LinearLayout

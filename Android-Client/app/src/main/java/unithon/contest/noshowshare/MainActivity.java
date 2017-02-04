@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity
 	{
 		if (view == binding.btnUserInfo)
 		{
-
+			startActivity(new Intent(this, MyReservationActivity.class));
 		}
 
 		else if (view == binding.btnMapMode)
