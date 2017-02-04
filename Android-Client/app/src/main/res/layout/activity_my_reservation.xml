@@ -1,182 +1,238 @@
 <!-- 내 정보 액티비티 레이아웃 -->
-<LinearLayout
+<layout
 	xmlns:android = "http://schemas.android.com/apk/res/android"
-	android:layout_width = "match_parent"
-	android:layout_height = "match_parent"
-	android:orientation = "vertical">
-
-	<android.support.design.widget.AppBarLayout
-		android:layout_width = "match_parent"
-		android:layout_height = "62dp"
-		android:background = "#FFF">
-
-		<RelativeLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent">
-
-			<!-- 뒤로가기 버튼 -->
-			<Button
-				android:id = "@+id/btn_back"
-				android:layout_width = "30dp"
-				android:layout_height = "30dp"
-				android:layout_centerVertical = "true"
-				android:layout_marginLeft = "15dp"
-				android:background = "@drawable/left_arrow"
-				android:onClick = "onClick"/>
-
-			<ImageView
-				android:layout_width = "wrap_content"
-				android:layout_height = "wrap_content"
-				android:background = "@drawable/title"
-				android:layout_centerInParent="true"/>
-		</RelativeLayout>
-
-	</android.support.design.widget.AppBarLayout>
+	xmlns:app = "http://schemas.android.com/apk/res-auto"
+	xmlns:tools = "http://schemas.android.com/tools">
 
 	<LinearLayout
 		android:layout_width = "match_parent"
 		android:layout_height = "match_parent"
-		android:background = "#e7e7e7"
-		android:gravity = "center"
+		android:background = "#dcdcdc"
 		android:orientation = "vertical">
 
-		<ImageView
-			android:layout_width = "300dp"
-			android:layout_height = "wrap_content"
-			android:adjustViewBounds = "true"
-			android:src = "@drawable/store"/>
+		<android.support.design.widget.AppBarLayout
+			android:layout_width = "match_parent"
+			android:layout_height = "62dp"
+			android:background = "#FFF">
 
-		<TextView
-			android:layout_width = "wrap_content"
-			android:layout_height = "wrap_content"
-			android:layout_marginBottom = "30dp"
-			android:gravity = "center"
-			android:text = "아직 예약한 가게가 없어요\n맛있는 식사를 찾아 떠나보세요"
-			android:textSize = "15sp"/>
-	</LinearLayout>
+			<RelativeLayout
+				android:layout_width = "match_parent"
+				android:layout_height = "match_parent">
 
-	<ScrollView
-		android:id = "@+id/my_reservation_info"
-		android:layout_width = "match_parent"
-		android:layout_height = "match_parent"
-		android:visibility = "gone">
+				<!-- 뒤로가기 버튼 -->
+				<Button
+					android:id = "@+id/btn_back"
+					android:layout_width = "30dp"
+					android:layout_height = "30dp"
+					android:layout_centerVertical = "true"
+					android:layout_marginLeft = "15dp"
+					android:background = "@drawable/left_arrow"
+					android:onClick = "onClick"/>
 
+				<ImageView
+					android:layout_width="150dp"
+					android:layout_height="50dp"
+					android:layout_centerHorizontal = "true"
+					android:layout_centerVertical = "true"
+					android:src="@drawable/logo"/>
+			</RelativeLayout>
+
+		</android.support.design.widget.AppBarLayout>
+
+		<!-- 예약한 것이 없을 때 보여줄 화면 -->
 		<LinearLayout
+			android:id = "@+id/if_no_reservation"
 			android:layout_width = "match_parent"
 			android:layout_height = "match_parent"
-			android:orientation = "vertical">
+			android:background = "#e7e7e7"
+			android:gravity = "center"
+			android:orientation = "vertical"
+			tools:visibility = "gone">
+
+			<ImageView
+				android:layout_width = "300dp"
+				android:layout_height = "wrap_content"
+				android:adjustViewBounds = "true"
+				android:src = "@drawable/store"/>
+
+			<TextView
+				android:layout_width = "wrap_content"
+				android:layout_height = "wrap_content"
+				android:layout_marginBottom = "30dp"
+				android:gravity = "center"
+				android:text = "아직 예약한 가게가 없어요\n맛있는 식사를 찾아 떠나보세요"
+				android:textSize = "15sp"/>
+		</LinearLayout>
+
+		<!-- 예약한 것이 있을 때 보여줄 화면 -->
+		<ScrollView
+			android:id = "@+id/if_reservation_exists"
+			android:layout_width = "match_parent"
+			android:layout_height = "0dp"
+			android:layout_weight = "1"
+			android:visibility = "gone"
+			tools:visibility = "visible">
 
 			<LinearLayout
 				android:layout_width = "match_parent"
-				android:layout_height = "300dp"
-				android:background = "#dcdcdc">
+				android:layout_height = "wrap_content"
+				android:orientation = "vertical">
 
-				<FrameLayout
+				<LinearLayout
 					android:layout_width = "match_parent"
-					android:layout_height = "match_parent"
-					android:background = "@drawable/store_image">
+					android:layout_height = "300dp">
 
 					<FrameLayout
 						android:layout_width = "match_parent"
-						android:layout_height = "100dp"
-						android:layout_gravity = "bottom"
-						android:layout_marginLeft = "3dp"
-						android:layout_marginRight = "3dp"
-						android:background = "@color/colorAccent"
-						android:paddingBottom = "5dp"
-						android:paddingTop = "5dp">
+						android:layout_height = "match_parent">
+
+						<ImageView
+							android:layout_width = "match_parent"
+							android:layout_height = "240dp"
+							android:scaleType = "centerCrop"
+							android:src = "@drawable/store_image"/>
 
 						<LinearLayout
 							android:layout_width = "match_parent"
 							android:layout_height = "match_parent"
+							android:layout_marginLeft = "8dp"
+							android:layout_marginRight = "8dp"
+							android:layout_marginTop = "155dp"
 							android:background = "#fff"
-							android:gravity = "center"
+							android:gravity = "center_horizontal"
 							android:orientation = "vertical">
 
+							<View
+								android:layout_width = "match_parent"
+								android:layout_height = "5dp"
+								android:background = "#fd4a4a"/>
+
+							<View
+								android:layout_width = "match_parent"
+								android:layout_height = "0dp"
+								android:layout_weight = "1"/>
+
 							<TextView
+								android:id = "@+id/txt_restaurant_name"
 								android:layout_width = "wrap_content"
 								android:layout_height = "wrap_content"
+								android:layout_marginBottom = "5dp"
 								android:text = "ELBON the table"
 								android:textColor = "@android:color/black"
-								android:textSize = "20sp"
+								android:textSize = "28sp"
 								android:textStyle = "bold"/>
 
-							<TextView
+							<LinearLayout
 								android:layout_width = "wrap_content"
-								android:layout_height = "wrap_content"
-								android:text = "Seoul Gangnam  Sinsa"
-								android:textColor = "#b2b2b2"
-								android:textSize = "12sp"
-								/>
+								android:layout_height = "wrap_content">
 
+								<ImageView
+									android:layout_width = "15dp"
+									android:layout_height = "15dp"
+									android:src = "@drawable/spot"/>
 
-							<TextView
+								<TextView
+									android:id = "@+id/txt_restaurant_location"
+									android:layout_width = "wrap_content"
+									android:layout_height = "wrap_content"
+									android:layout_marginBottom = "5dp"
+									android:text = "Seoul Gangnam  Sinsa"
+									android:textColor = "#b2b2b2"
+									android:textSize = "12sp"/>
+							</LinearLayout>
+
+							<LinearLayout
 								android:layout_width = "wrap_content"
-								android:layout_height = "wrap_content"
-								android:text = "02-1234-5678"
-								android:textColor = "#b2b2b2"
-								android:textSize = "10sp"
-								/>
+								android:layout_height = "wrap_content">
 
+								<ImageView
+									android:layout_width = "15dp"
+									android:layout_height = "15dp"
+									android:src = "@drawable/phone"/>
+
+								<TextView
+									android:id = "@+id/txt_phone"
+									android:layout_width = "wrap_content"
+									android:layout_height = "wrap_content"
+									android:text = "02-1234-5678"
+									android:textColor = "#b2b2b2"
+									android:textSize = "10sp"/>
+							</LinearLayout>
+
+							<View
+								android:layout_width = "match_parent"
+								android:layout_height = "0dp"
+								android:layout_weight = "1"/>
+
+							<View
+								android:layout_width = "match_parent"
+								android:layout_height = "5dp"
+								android:background = "#fd4a4a"/>
 						</LinearLayout>
-
 					</FrameLayout>
 
-				</FrameLayout>
+				</LinearLayout>
 
-			</LinearLayout>
-
-			<LinearLayout
-				android:layout_width = "match_parent"
-				android:layout_height = "match_parent">
-
-				<FrameLayout
+				<LinearLayout
 					android:layout_width = "match_parent"
 					android:layout_height = "match_parent"
-					android:background = "#DCDCDC">
+					android:orientation = "vertical">
 
-					<LinearLayout
+					<android.support.v7.widget.CardView
 						android:layout_width = "match_parent"
-						android:layout_height = "match_parent"
-						android:orientation = "vertical">
+						android:layout_height = "200dp"
+						android:layout_marginTop = "5dp"
+						app:cardElevation = "5dp">
 
 						<LinearLayout
 							android:layout_width = "match_parent"
-							android:layout_height = "300dp"
-							android:layout_marginTop = "5dp"
-							android:background = "@android:color/white">
+							android:layout_height = "match_parent"
+							android:orientation = "vertical"
+							android:padding = "22dp">
 
-							<TextView
-								android:layout_width = "match_parent"
-								android:layout_height = "20dp"
-								android:text = "map"/>
-
-						</LinearLayout>
-
-						<LinearLayout
-							android:layout_width = "match_parent"
-							android:layout_height = "wrap_content"
-							android:gravity = "center|right"
-							android:orientation = "horizontal">
-
-							<TextView
+							<LinearLayout
 								android:layout_width = "wrap_content"
 								android:layout_height = "wrap_content"
-								android:text = "push"/>
+								android:gravity = "center">
 
-							<SeekBar
-								android:layout_width = "70dp"
-								android:layout_height = "50dp"/>
+								<ImageView
+									android:layout_width = "20dp"
+									android:layout_height = "20dp"
+									android:src = "@drawable/detailpage_map"/>
 
+								<TextView
+									android:layout_width = "wrap_content"
+									android:layout_height = "wrap_content"
+									android:text = "지도"
+									android:textSize = "17sp"/>
+							</LinearLayout>
+
+							<com.nhn.android.maps.NMapView
+								android:id = "@+id/map_view"
+								android:layout_width = "match_parent"
+								android:layout_height = "match_parent"
+								android:layout_marginTop = "8dp"/>
 						</LinearLayout>
 
-					</LinearLayout>
-
-				</FrameLayout>
-
+					</android.support.v7.widget.CardView>
+				</LinearLayout>
 			</LinearLayout>
+		</ScrollView>
 
+		<!-- 스위치 -->
+		<LinearLayout
+			android:layout_width = "wrap_content"
+			android:layout_height = "wrap_content"
+			android:layout_gravity = "right"
+			android:layout_weight = "0"
+			android:gravity = "center"
+			android:orientation = "horizontal">
+
+			<Switch
+				android:layout_width = "match_parent"
+				android:layout_height = "wrap_content"
+				android:layout_margin = "15dp"
+				android:text = "푸쉬알림"/>
 		</LinearLayout>
-
-	</ScrollView>
-</LinearLayout>
+	</LinearLayout>
+</layout>

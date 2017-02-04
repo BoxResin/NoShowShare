@@ -11,7 +11,6 @@ import android.view.View;
 
 import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapController;
-import com.nhn.android.maps.NMapOverlayItem;
 import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.overlay.NMapPOIdata;
 import com.nhn.android.maps.overlay.NMapPOIitem;
@@ -76,9 +75,6 @@ public class MapActivity extends NMapActivity implements LocationListener
 		mapController.setZoomLevel(13);
 
 		// 현재 위치에 마커를 띄운다.
-		NMapOverlayItem overlayItem = new NMapOverlayItem(new NGeoPoint(location.getLongitude(), location.getLatitude()),
-				"title", "snippet", getResources().getDrawable(R.drawable.map_myplace));
-
 		final NMapViewerResourceProvider provider = new NMapViewerResourceProvider(this);
 		final NMapOverlayManager overlayManager = new NMapOverlayManager(this, binding.mapView, provider);
 

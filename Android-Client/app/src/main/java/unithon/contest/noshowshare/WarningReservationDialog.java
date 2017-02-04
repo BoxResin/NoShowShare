@@ -12,15 +12,14 @@ import com.google.gson.Gson;
 
 import data.Reservation;
 
-import static unithon.contest.noshowshare.R.drawable.reservation;
-
 /**
  * Created by minhyeon on 2017-02-04.
  */
 
 public class WarningReservationDialog extends Dialog implements View.OnClickListener
 {
-	TextView textView;
+	private TextView textView;
+	private Reservation reservation;
 
 	public WarningReservationDialog(Context context, Reservation reservation)
 	{
@@ -32,6 +31,8 @@ public class WarningReservationDialog extends Dialog implements View.OnClickList
 
 		textView = (TextView) findViewById(R.id.btn_confirm);
 		textView.setOnClickListener(this);
+
+		this.reservation = reservation;
 	}
 
 	@Override
