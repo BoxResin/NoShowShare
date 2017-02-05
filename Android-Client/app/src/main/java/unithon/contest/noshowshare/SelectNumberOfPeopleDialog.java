@@ -3,6 +3,9 @@ package unithon.contest.noshowshare;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.app.ActionBar;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,6 +28,10 @@ public class SelectNumberOfPeopleDialog extends Dialog implements View.OnClickLi
     private Button countup;
     private Button countdown;
 
+    private TextView txtFoodName;
+    private TextView txtPrice;
+    private TextView txtDiscountedPrice;
+    private TextView txtDiscountRate;
     private TextView peopleCount;
     private TextView priceSum;
     private int currentCount;
@@ -49,6 +56,25 @@ public class SelectNumberOfPeopleDialog extends Dialog implements View.OnClickLi
         countdown = (Button) findViewById(R.id.btn_down);
 
         peopleCount = (TextView) findViewById(R.id.txt_remained);
+
+        txtFoodName = (TextView) findViewById(R.id.txt_food_name);
+        txtPrice = (TextView) findViewById(R.id.txt_price);
+        txtDiscountedPrice = (TextView) findViewById(R.id.txt_discounted_price);
+        txtDiscountRate = (TextView) findViewById(R.id.txt_discount_rate);
+
+        txtFoodName.setText(reservation.getFood().getName());
+        txtPrice.setText(reservation.getFood().getPrice() + "원");
+        txtDiscountedPrice.setText(reservation.getDiscountedPrice() + "원");
+
+        // 원가에 취소선 긋기
+        SpannableString txtPriceSpan = new SpannableString(reservation.getFood().getPrice() + "원");
+        txtPriceSpan.setSpan(new StrikethroughSpan(), 0, txtPriceSpan.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        txtPrice.setText(txtPriceSpan);
+
+        // 할인율 계산
+        double discountRate = 1 - (double) reservation.getDiscountedPrice() / reservation.getFood().getPrice();
+        discountRate *= 100;
+        txtDiscountRate.setText((int) discountRate + "%");
 
         countup.setOnClickListener(new View.OnClickListener() {
             @Override
